@@ -142,9 +142,51 @@ app.post('/provider/login', async (req, res) => {
             message: 'Internal server error' 
         });
     }
-});
+// User login endpoint (for regular users, not providers)
+app.post('/user/login', async (req, res) => {
+    try {
+        const { email, password, rememberMe } = req.body;
 
-// Get providers by service type - UPDATED for booking service
+        console.log('User login attempt:', email);
+
+        // For now, accept any email/password combination for demo
+        // In production, this should validate against a user database
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email and password are required'
+            });
+        }
+
+        // Mock user data (replace with database lookup in production)
+        const mockUser = {
+            id: generateId(),
+            email: email,
+            firstName: email.split('@')[0].split('.')[0].charAt(0).toUpperCase() + email.split('@')[0].split('.')[0].slice(1),
+            lastName: 'User',
+            role: 'user'
+        };
+
+        // Mock token generation
+        const token = 'mock-jwt-token-' + generateId();
+
+        console.log('User login successful:', email);
+
+        res.json({
+            success: true,
+            message: 'Login successful',
+            token: token,
+            user: mockUser
+        });
+
+    } catch (error) {
+        console.error('User login error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+});
 app.get('/providers/:serviceType', (req, res) => {
     try {
         const { serviceType } = req.params;
@@ -318,6 +360,7 @@ app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log('📝 Provider registration available at /provider/register');
     console.log('🔑 Provider login available at /provider/login');
+    console.log('👤 User login available at /user/login');
     console.log('👥 Providers API available at /providers/:serviceType');
     console.log('📅 Bookings API available at /bookings');
     console.log('💡 Sample providers added for testing');
