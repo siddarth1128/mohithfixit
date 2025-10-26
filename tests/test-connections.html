@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FixItNow - Connection Test Suite</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 20px;
+                min-height: 100vh;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 20px;
+                padding: 40px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+
+            h1 {
+                text-align: center;
+                color: #667eea;
+                margin-bottom: 10px;
+                font-size: 2.5em;
+            }
+
+            .subtitle {
+                text-align: center;
+                color: #666;
+                margin-bottom: 30px;
+                font-size: 1.1em;
+            }
+
+            .test-section {
+                margin: 30px 0;
+                padding: 25px;
+                background: #f8f9fa;
+                border-radius: 12px;
+                border-left: 4px solid #667eea;
+            }
+
+            .test-section h2 {
+                color: #333;
+                margin-bottom: 20px;
+                font-size: 1.5em;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .test-result {
+                padding: 15px;
+                margin: 10px 0;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 0.95em;
+                transition: all 0.3s ease;
+            }
+
+            .test-result.success {
+                background: #d4edda;
+                border-left: 4px solid #28a745;
+                color: #155724;
+            }
+
+            .test-result.error {
+                background: #f8d7da;
+                border-left: 4px solid #dc3545;
+                color: #721c24;
+            }
+
+            .test-result.warning {
+                background: #fff3cd;
+                border-left: 4px solid #ffc107;
+                color: #856404;
+            }
+
+            .test-result.info {
+                background: #d1ecf1;
+                border-left: 4px solid #17a2b8;
+                color: #0c5460;
+            }
+
+            .test-result.pending {
+                background: #e2e3e5;
+                border-left: 4px solid #6c757d;
+                color: #383d41;
+            }
+
+            .icon {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+
+            .btn {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 8px;
+                font-size: 1.1em;
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+                margin: 10px 5px;
+                font-weight: 600;
+            }
+
+            .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            }
+
+            .btn:active {
+                transform: translateY(0);
+            }
+
+            .btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+            .btn-group {
+                text-align: center;
+                margin: 30px 0;
+            }
+
+            .summary {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                margin: 30px 0;
+            }
+
+            .summary-card {
+                padding: 20px;
+                border-radius: 12px;
+                text-align: center;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .summary-card.passed {
+                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                color: white;
+            }
+
+            .summary-card.failed {
+                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                color: white;
+            }
+
+            .summary-card.warnings {
+                background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+                color: white;
+            }
+
+            .summary-card h3 {
+                font-size: 2.5em;
+                margin-bottom: 5px;
+            }
+
+            .summary-card p {
+                font-size: 1em;
+                opacity: 0.9;
+            }
+
+            .loading {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 3px solid rgba(102, 126, 234, 0.3);
+                border-radius: 50%;
+                border-top-color: #667eea;
+                animation: spin 1s ease-in-out infinite;
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .recommendation-box {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 25px;
+                border-radius: 12px;
+                margin: 30px 0;
+            }
+
+            .recommendation-box h3 {
+                margin-bottom: 15px;
+                font-size: 1.3em;
+            }
+
+            .recommendation-box ul {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .recommendation-box li {
+                padding: 10px 0;
+                padding-left: 25px;
+                position: relative;
+            }
+
+            .recommendation-box li:before {
+                content: "→";
+                position: absolute;
+                left: 0;
+                font-weight: bold;
+            }
+
+            .code-block {
+                background: rgba(0, 0, 0, 0.2);
+                padding: 10px;
+                border-radius: 6px;
+                font-family: "Courier New", monospace;
+                margin: 10px 0;
+                font-size: 0.9em;
+            }
+
+            .server-status {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+                margin: 20px 0;
+            }
+
+            .server-card {
+                padding: 20px;
+                border-radius: 12px;
+                border: 2px solid #e0e0e0;
+                transition: all 0.3s ease;
+            }
+
+            .server-card.online {
+                border-color: #28a745;
+                background: #f0fff4;
+            }
+
+            .server-card.offline {
+                border-color: #dc3545;
+                background: #fff5f5;
+            }
+
+            .server-card h4 {
+                margin-bottom: 10px;
+                font-size: 1.2em;
+            }
+
+            .status-badge {
+                display: inline-block;
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 0.85em;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .status-badge.online {
+                background: #28a745;
+                color: white;
+            }
+
+            .status-badge.offline {
+                background: #dc3545;
+                color: white;
+            }
+
+            .progress-bar {
+                width: 100%;
+                height: 8px;
+                background: #e0e0e0;
+                border-radius: 4px;
+                overflow: hidden;
+                margin: 20px 0;
+            }
+
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+                width: 0%;
+                transition: width 0.3s ease;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🧪 FixItNow Connection Test Suite</h1>
+            <p class="subtitle">
+                Comprehensive Backend & Frontend Connection Testing
+            </p>
+
+            <div class="btn-group">
+                <button class="btn" onclick="runAllTests()">
+                    Run All Tests
+                </button>
+                <button class="btn" onclick="clearResults()">
+                    Clear Results
+                </button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="summary" id="summary" style="display: none">
+                <div class="summary-card passed">
+                    <h3 id="passedCount">0</h3>
+                    <p>Tests Passed</p>
+                </div>
+                <div class="summary-card failed">
+                    <h3 id="failedCount">0</h3>
+                    <p>Tests Failed</p>
+                </div>
+                <div class="summary-card warnings">
+                    <h3 id="warningCount">0</h3>
+                    <p>Warnings</p>
+                </div>
+            </div>
+
+            <!-- Server Status Section -->
+            <div class="test-section">
+                <h2>🖥️ Server Status</h2>
+                <div class="server-status" id="serverStatus"></div>
+            </div>
+
+            <!-- Test Sections -->
+            <div class="test-section">
+                <h2>🔌 Test 1: Server Connectivity</h2>
+                <div id="serverTests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>👤 Test 2: User Authentication (Port 6000)</h2>
+                <div id="userAuthTests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>🔧 Test 3: Provider Services (Port 4000)</h2>
+                <div id="providerTests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>📦 Test 4: Booking & Notifications</h2>
+                <div id="bookingTests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>🗺️ Test 5: Frontend-Backend Mapping</h2>
+                <div id="mappingTests"></div>
+            </div>
+
+            <!-- Recommendations -->
+            <div
+                class="recommendation-box"
+                id="recommendations"
+                style="display: none"
+            >
+                <h3>💡 Recommendations to Fix Your Login Issue</h3>
+                <div id="recommendationsList"></div>
+            </div>
+
+            <!-- Diagnosis -->
+            <div
+                class="recommendation-box"
+                id="diagnosis"
+                style="display: none"
+            >
+                <h3>🔍 Login Issue Diagnosis</h3>
+                <div id="diagnosisContent"></div>
+            </div>
+        </div>
+
+        <script>
+            const SERVERS = {
+                ROOT_SERVER: "http://localhost:4000",
+                BACKEND_SERVER: "http://localhost:6000",
+                PORT_9000: "http://localhost:9000",
+            };
+
+            let testResults = {
+                passed: 0,
+                failed: 0,
+                warnings: 0,
+                total: 0,
+                serverStatus: {},
+            };
+
+            function addResult(containerId, type, message, details = "") {
+                const container = document.getElementById(containerId);
+                const resultDiv = document.createElement("div");
+                resultDiv.className = `test-result ${type}`;
+
+                let icon = "";
+                switch (type) {
+                    case "success":
+                        icon = "✓";
+                        testResults.passed++;
+                        break;
+                    case "error":
+                        icon = "✗";
+                        testResults.failed++;
+                        break;
+                    case "warning":
+                        icon = "⚠";
+                        testResults.warnings++;
+                        break;
+                    case "info":
+                        icon = "ℹ";
+                        break;
+                    case "pending":
+                        icon = "⏳";
+                        break;
+                }
+
+                resultDiv.innerHTML = `
+                <span class="icon">${icon}</span>
+                <div>
+                    <strong>${message}</strong>
+                    ${details ? `<div style="margin-top: 5px; font-size: 0.9em; opacity: 0.8;">${details}</div>` : ""}
+                </div>
+            `;
+
+                container.appendChild(resultDiv);
+                testResults.total++;
+                updateSummary();
+            }
+
+            function updateSummary() {
+                document.getElementById("summary").style.display = "grid";
+                document.getElementById("passedCount").textContent =
+                    testResults.passed;
+                document.getElementById("failedCount").textContent =
+                    testResults.failed;
+                document.getElementById("warningCount").textContent =
+                    testResults.warnings;
+            }
+
+            function updateProgress(percentage) {
+                document.getElementById("progressBar").style.width =
+                    percentage + "%";
+            }
+
+            function clearResults() {
+                const containers = [
+                    "serverTests",
+                    "userAuthTests",
+                    "providerTests",
+                    "bookingTests",
+                    "mappingTests",
+                    "serverStatus",
+                ];
+                containers.forEach((id) => {
+                    document.getElementById(id).innerHTML = "";
+                });
+
+                testResults = {
+                    passed: 0,
+                    failed: 0,
+                    warnings: 0,
+                    total: 0,
+                    serverStatus: {},
+                };
+                document.getElementById("summary").style.display = "none";
+                document.getElementById("recommendations").style.display =
+                    "none";
+                document.getElementById("diagnosis").style.display = "none";
+                updateProgress(0);
+            }
+
+            async function testServerConnection(name, url, port) {
+                try {
+                    const response = await fetch(url, {
+                        method: "GET",
+                        mode: "cors",
+                        headers: { "Content-Type": "application/json" },
+                    });
+
+                    addResult(
+                        "serverTests",
+                        "success",
+                        `${name} is ONLINE`,
+                        `URL: ${url} | Status: ${response.status}`,
+                    );
+                    testResults.serverStatus[port] = true;
+                    return true;
+                } catch (error) {
+                    addResult(
+                        "serverTests",
+                        "error",
+                        `${name} is OFFLINE`,
+                        `URL: ${url} | Error: ${error.message}`,
+                    );
+                    testResults.serverStatus[port] = false;
+                    return false;
+                }
+            }
+
+            function updateServerStatus() {
+                const statusContainer = document.getElementById("serverStatus");
+                statusContainer.innerHTML = "";
+
+                const servers = [
+                    {
+                        name: "Root Server",
+                        port: 4000,
+                        url: SERVERS.ROOT_SERVER,
+                    },
+                    {
+                        name: "Backend Server",
+                        port: 6000,
+                        url: SERVERS.BACKEND_SERVER,
+                    },
+                    {
+                        name: "Port 9000 Server",
+                        port: 9000,
+                        url: SERVERS.PORT_9000,
+                    },
+                ];
+
+                servers.forEach((server) => {
+                    const isOnline = testResults.serverStatus[server.port];
+                    const card = document.createElement("div");
+                    card.className = `server-card ${isOnline ? "online" : "offline"}`;
+                    card.innerHTML = `
+                    <span class="status-badge ${isOnline ? "online" : "offline"}">
+                        ${isOnline ? "● ONLINE" : "● OFFLINE"}
+                    </span>
+                    <h4>${server.name}</h4>
+                    <p>Port: ${server.port}</p>
+                    <p>URL: ${server.url}</p>
+                `;
+                    statusContainer.appendChild(card);
+                });
+            }
+
+            async function testUserRegistration() {
+                if (!testResults.serverStatus[6000]) {
+                    addResult(
+                        "userAuthTests",
+                        "error",
+                        "User Registration Test Skipped",
+                        "Backend server (Port 6000) is not running",
+                    );
+                    return null;
+                }
+
+                const testUser = {
+                    firstName: "Test",
+                    lastName: "User",
+                    email: `test${Date.now()}@example.com`,
+                    phone: "1234567890",
+                    password: "Test123!@#",
+                };
+
+                try {
+                    const response = await fetch(
+                        `${SERVERS.BACKEND_SERVER}/api/auth/register`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(testUser),
+                        },
+                    );
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        addResult(
+                            "userAuthTests",
+                            "success",
+                            "User Registration Working",
+                            `Email: ${testUser.email}`,
+                        );
+                        return testUser;
+                    } else {
+                        addResult(
+                            "userAuthTests",
+                            "error",
+                            "User Registration Failed",
+                            data.message,
+                        );
+                        return null;
+                    }
+                } catch (error) {
+                    addResult(
+                        "userAuthTests",
+                        "error",
+                        "User Registration Error",
+                        error.message,
+                    );
+                    return null;
+                }
+            }
+
+            async function testUserLogin(
+                email,
+                password,
+                shouldSucceed = true,
+            ) {
+                if (!testResults.serverStatus[6000]) {
+                    addResult(
+                        "userAuthTests",
+                        "error",
+                        "User Login Test Skipped",
+                        "Backend server (Port 6000) is not running",
+                    );
+                    return null;
+                }
+
+                try {
+                    const response = await fetch(
+                        `${SERVERS.BACKEND_SERVER}/api/auth/login`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email, password }),
+                        },
+                    );
+
+                    const data = await response.json();
+
+                    if (data.success && shouldSucceed) {
+                        addResult(
+                            "userAuthTests",
+                            "success",
+                            "User Login Working",
+                            `Token received: ${data.data.accessToken?.substring(0, 30)}...`,
+                        );
+                        return data;
+                    } else if (!data.success && !shouldSucceed) {
+                        addResult(
+                            "userAuthTests",
+                            "success",
+                            "Login Error Handling Working",
+                            "Correctly rejected invalid credentials",
+                        );
+                        return null;
+                    } else {
+                        addResult(
+                            "userAuthTests",
+                            "error",
+                            "User Login Failed",
+                            data.message || "Unknown error",
+                        );
+                        return null;
+                    }
+                } catch (error) {
+                    addResult(
+                        "userAuthTests",
+                        "error",
+                        "User Login Error",
+                        error.message,
+                    );
+                    return null;
+                }
+            }
+
+            async function testProviderRegistration() {
+                if (!testResults.serverStatus[4000]) {
+                    addResult(
+                        "providerTests",
+                        "error",
+                        "Provider Registration Test Skipped",
+                        "Root server (Port 4000) is not running",
+                    );
+                    return null;
+                }
+
+                const testProvider = {
+                    name: "Test Provider",
+                    email: `provider${Date.now()}@example.com`,
+                    phone: "0987654321",
+                    service_type: "plumbing",
+                    experience: "5",
+                    password: "Provider123!@#",
+                };
+
+                try {
+                    const response = await fetch(
+                        `${SERVERS.ROOT_SERVER}/provider/register`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(testProvider),
+                        },
+                    );
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        addResult(
+                            "providerTests",
+                            "success",
+                            "Provider Registration Working",
+                            `Email: ${testProvider.email}`,
+                        );
+                        return testProvider;
+                    } else {
+                        addResult(
+                            "providerTests",
+                            "error",
+                            "Provider Registration Failed",
+                            data.message,
+                        );
+                        return null;
+                    }
+                } catch (error) {
+                    addResult(
+                        "providerTests",
+                        "error",
+                        "Provider Registration Error",
+                        error.message,
+                    );
+                    return null;
+                }
+            }
+
+            async function testProviderLogin(email, password) {
+                if (!testResults.serverStatus[4000]) {
+                    addResult(
+                        "providerTests",
+                        "error",
+                        "Provider Login Test Skipped",
+                        "Root server (Port 4000) is not running",
+                    );
+                    return null;
+                }
+
+                try {
+                    const response = await fetch(
+                        `${SERVERS.ROOT_SERVER}/provider/login`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email, password }),
+                        },
+                    );
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        addResult(
+                            "providerTests",
+                            "success",
+                            "Provider Login Working",
+                            `Provider: ${data.provider.name}`,
+                        );
+                        return data;
+                    } else {
+                        addResult(
+                            "providerTests",
+                            "error",
+                            "Provider Login Failed",
+                            data.message,
+                        );
+                        return null;
+                    }
+                } catch (error) {
+                    addResult(
+                        "providerTests",
+                        "error",
+                        "Provider Login Error",
+                        error.message,
+                    );
+                    return null;
+                }
+            }
+
+            async function testGetProviders() {
+                if (!testResults.serverStatus[4000]) {
+                    addResult(
+                        "providerTests",
+                        "error",
+                        "Get Providers Test Skipped",
+                        "Root server (Port 4000) is not running",
+                    );
+                    return;
+                }
+
+                try {
+                    const response = await fetch(
+                        `${SERVERS.ROOT_SERVER}/providers/plumbing`,
+                    );
+                    const data = await response.json();
+
+                    if (data.success) {
+                        addResult(
+                            "providerTests",
+                            "success",
+                            "Get Providers Working",
+                            `Found ${data.providers.length} plumbing providers`,
+                        );
+                    } else {
+                        addResult(
+                            "providerTests",
+                            "error",
+                            "Get Providers Failed",
+                            "Unexpected response format",
+                        );
+                    }
+                } catch (error) {
+                    addResult(
+                        "providerTests",
+                        "error",
+                        "Get Providers Error",
+                        error.message,
+                    );
+                }
+            }
+
+            async function testBooking() {
+                if (!testResults.serverStatus[4000]) {
+                    addResult(
+                        "bookingTests",
+                        "error",
+                        "Booking Test Skipped",
+                        "Root server (Port 4000) is not running",
+                    );
+                    return;
+                }
+
+                const bookingData = {
+                    serviceType: "plumbing",
+                    serviceCategory: "Plumbing",
+                    providerId: "test123",
+                    customerName: "Test Customer",
+                    customerEmail: "test@example.com",
+                    customerPhone: "1234567890",
+                    address: "123 Test St",
+                    problemDescription: "Test problem",
+                    preferredDate: "2024-01-15",
+                    preferredTime: "10:00 AM",
+                    totalCost: 100,
+                };
+
+                try {
+                    const response = await fetch(
+                        `${SERVERS.ROOT_SERVER}/bookings`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(bookingData),
+                        },
+                    );
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        addResult(
+                            "bookingTests",
+                            "success",
+                            "Booking Endpoint Working",
+                            `Booking ID: ${data.booking.id}`,
+                        );
+                    } else {
+                        addResult(
+                            "bookingTests",
+                            "error",
+                            "Booking Failed",
+                            data.message,
+                        );
+                    }
+                } catch (error) {
+                    addResult(
+                        "bookingTests",
+                        "error",
+                        "Booking Error",
+                        error.message,
+                    );
+                }
+            }
+
+            async function testNotifications() {
+                const servers = [
+                    { port: 4000, url: SERVERS.ROOT_SERVER },
+                    { port: 9000, url: SERVERS.PORT_9000 },
+                ];
+
+                for (const server of servers) {
+                    if (!testResults.serverStatus[server.port]) {
+                        continue;
+                    }
+
+                    try {
+                        const response = await fetch(
+                            `${server.url}/notifications`,
+                            {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    providerId: "test",
+                                    message: "test",
+                                }),
+                            },
+                        );
+
+                        addResult(
+                            "bookingTests",
+                            "success",
+                            `Notifications endpoint found on Port ${server.port}`,
+                            "",
+                        );
+                        return;
+                    } catch (error) {
+                        // Expected to fail
+                    }
+                }
+
+                addResult(
+                    "bookingTests",
+                    "warning",
+                    "Notifications Endpoint Not Found",
+                    "This endpoint is expected by frontend but not implemented",
+                );
+            }
+
+            function testFrontendMapping() {
+                const mappings = [
+                    {
+                        file: "user_login.html",
+                        port: 6000,
+                        description: "User Login Page",
+                    },
+                    {
+                        file: "user_register.html",
+                        port: 6000,
+                        description: "User Registration Page",
+                    },
+                    {
+                        file: "public/book_service.html",
+                        port: 4000,
+                        description: "Book Service (Public)",
+                    },
+                    {
+                        file: "book_service.html",
+                        port: 9000,
+                        description: "Book Service (Root)",
+                    },
+                    {
+                        file: "service/provider_login.html",
+                        port: 9000,
+                        description: "Provider Login",
+                    },
+                    {
+                        file: "service/provider_register.html",
+                        port: 9000,
+                        description: "Provider Registration",
+                    },
+                    {
+                        file: "service/provider_dashboard.html",
+                        port: 9000,
+                        description: "Provider Dashboard",
+                    },
+                ];
+
+                mappings.forEach((mapping) => {
+                    const isAvailable = testResults.serverStatus[mapping.port];
+                    if (isAvailable) {
+                        addResult(
+                            "mappingTests",
+                            "success",
+                            `${mapping.description}`,
+                            `${mapping.file} → Port ${mapping.port} ✓`,
+                        );
+                    } else {
+                        addResult(
+                            "mappingTests",
+                            "error",
+                            `${mapping.description}`,
+                            `${mapping.file} → Port ${mapping.port} ✗ (Server not running)`,
+                        );
+                    }
+                });
+            }
+
+            function generateRecommendations() {
+                const recommendations = [];
+
+                if (!testResults.serverStatus[6000]) {
+                    recommendations.push({
+                        title: "Start Backend Server (Port 6000)",
+                        steps: [
+                            "Open a terminal/command prompt",
+                            'Navigate to backend folder: <div class="code-block">cd backend</div>',
+                            'Install dependencies (if needed): <div class="code-block">npm install</div>',
+                            'Start the server: <div class="code-block">npm start</div>',
+                            "This server handles user authentication (login/register)",
+                        ],
+                    });
+                }
+
+                if (!testResults.serverStatus[4000]) {
+                    recommendations.push({
+                        title: "Start Root Server (Port 4000)",
+                        steps: [
+                            "Open a new terminal/command prompt",
+                            "Stay in the root directory",
+                            'Install dependencies (if needed): <div class="code-block">npm install</div>',
+                            'Start the server: <div class="code-block">npm start</div>',
+                            "This server handles provider services and bookings",
+                        ],
+                    });
+                }
+
+                if (!testResults.serverStatus[9000]) {
+                    recommendations.push({
+                        title: "Fix Port 9000 Issue",
+                        steps: [
+                            "Several frontend files expect port 9000, but no server is running on this port",
+                            "Option 1: Update these files to use port 4000 instead",
+                            "Option 2: Configure the root server to run on port 9000",
+                            "Affected files: book_service.html, service/provider_*.html",
+                        ],
+                    });
+                }
+
+                if (recommendations.length > 0) {
+                    const recBox = document.getElementById("recommendations");
+                    const recList = document.getElementById(
+                        "recommendationsList",
+                    );
+                    recList.innerHTML = "";
+
+                    recommendations.forEach((rec) => {
+                        const div = document.createElement("div");
+                        div.innerHTML = `
+                        <h4 style="margin: 15px 0 10px 0;">${rec.title}</h4>
+                        <ul>
+                            ${rec.steps.map((step) => `<li>${step}</li>`).join("")}
+                        </ul>
+                    `;
+                        recList.appendChild(div);
+                    });
+
+                    recBox.style.display = "block";
+                }
+            }
+
+            function generateDiagnosis() {
+                const diagBox = document.getElementById("diagnosis");
+                const diagContent = document.getElementById("diagnosisContent");
+
+                let diagnosis = "";
+
+                if (
+                    !testResults.serverStatus[6000] &&
+                    !testResults.serverStatus[4000]
+                ) {
+                    diagnosis = `
+                    <h4 style="color: #ffeb3b; margin-bottom: 15px;">🚨 CRITICAL: No Servers Running!</h4>
+                    <p>You cannot login because both backend servers are down.</p>
+                    <p style="margin-top: 15px;">To fix this issue:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Open Terminal 1 and run: <div class="code-block">cd backend && npm start</div></li>
+                        <li>Open Terminal 2 and run: <div class="code-block">npm start</div></li>
+                        <li>Wait for both servers to start (you'll see "Server running" messages)</li>
+                        <li>Refresh this test page and run tests again</li>
+                    </ol>
+                `;
+                } else if (!testResults.serverStatus[6000]) {
+                    diagnosis = `
+                    <h4 style="color: #ffeb3b; margin-bottom: 15px;">⚠️ Backend Server Not Running</h4>
+                    <p>The backend server (Port 6000) is not running.</p>
+                    <p><strong>User login/register will NOT work.</strong></p>
+                    <p style="margin-top: 15px;">Start it with:</p>
+                    <div class="code-block">cd backend && npm start</div>
+                    <p style="margin-top: 10px;">Note: Make sure MongoDB is installed and running for this server to work properly.</p>
+                `;
+                } else if (!testResults.serverStatus[4000]) {
+                    diagnosis = `
+                    <h4 style="color: #ffeb3b; margin-bottom: 15px;">⚠️ Root Server Not Running</h4>
+                    <p>The root server (Port 4000) is not running.</p>
+                    <p><strong>Provider login/register and booking services will NOT work.</strong></p>
+                    <p style="margin-top: 15px;">Start it with:</p>
+                    <div class="code-block">npm start</div>
+                `;
+                } else {
+                    diagnosis = `
+                    <h4 style="color: #4caf50; margin-bottom: 15px;">✅ Both Servers Are Running!</h4>
+                    <p>If you still cannot login, check the following:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Which login page are you using?</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>user_login.html → needs Port 6000 (Backend Server)</li>
+                                <li>service/provider_login.html → expects Port 9000 (NOT running)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Check browser console for errors:</strong> Press F12 to open Developer Tools</li>
+                        <li><strong>For Port 6000:</strong> Make sure MongoDB is running</li>
+                        <li><strong>Check credentials:</strong> Make sure you're using the correct email and password</li>
+                        <li><strong>Clear browser cache:</strong> Sometimes old cached files cause issues</li>
+                    </ol>
+                `;
+                }
+
+                diagContent.innerHTML = diagnosis;
+                diagBox.style.display = "block";
+            }
+
+            async function runAllTests() {
+                clearResults();
+                updateProgress(10);
+
+                // Test 1: Server Connectivity
+                await testServerConnection(
+                    "Root Server (Port 4000)",
+                    SERVERS.ROOT_SERVER,
+                    4000,
+                );
+                await testServerConnection(
+                    "Backend Server (Port 6000)",
+                    SERVERS.BACKEND_SERVER,
+                    6000,
+                );
+                await testServerConnection(
+                    "Port 9000 Server",
+                    SERVERS.PORT_9000,
+                    9000,
+                );
+
+                updateServerStatus();
+                updateProgress(25);
+
+                // Test 2: User Authentication
+                const user = await testUserRegistration();
+                updateProgress(40);
+
+                if (user) {
+                    await testUserLogin(user.email, user.password, true);
+                    await testUserLogin(user.email, "WrongPassword123", false);
+                }
+                updateProgress(55);
+
+                // Test 3: Provider Services
+                const provider = await testProviderRegistration();
+                updateProgress(65);
+
+                if (provider) {
+                    await testProviderLogin(provider.email, provider.password);
+                }
+
+                await testGetProviders();
+                updateProgress(75);
+
+                // Test 4: Booking & Notifications
+                await testBooking();
+                await testNotifications();
+                updateProgress(85);
+
+                // Test 5: Frontend Mapping
+                testFrontendMapping();
+                updateProgress(95);
+
+                // Generate recommendations and diagnosis
+                generateRecommendations();
+                generateDiagnosis();
+
+                updateProgress(100);
+
+                // Scroll to summary
+                document
+                    .getElementById("summary")
+                    .scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+
+            // Auto-run tests on page load
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    runAllTests();
+                }, 500);
+            });
+        </script>
+    </body>
+</html>

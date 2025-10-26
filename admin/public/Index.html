@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Portal — Secure Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+    <div class="blob b5"></div>
+  </div>
+
+  <!-- Floating particles -->
+  <div class="particles" aria-hidden="true">
+    <div class="particle p1">🔧</div>
+    <div class="particle p2">⚡</div>
+    <div class="particle p3">🛠️</div>
+    <div class="particle p4">💡</div>
+    <div class="particle p5">🔩</div>
+    <div class="particle p6">⚙️</div>
+  </div>
+
+  <!-- Dark mode toggle -->
+  <button class="mode-toggle" id="modeToggle">🌙</button>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <main class="wrapper">
+    <!-- Left info panel -->
+    <aside class="info" aria-label="FixItNow information">
+      <div class="brand">
+        <div class="brand-icon">
+          <div class="tool-icon">🔧</div>
+        </div>
+        <div>
+          <h1>FixItNow Admin</h1>
+          <p>Professional management system — secure access control</p>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="dot">👷</div>
+          <div>
+            <h3>Approve service providers</h3>
+            <p>Review and approve incoming providers before they go live.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="dot">🔧</div>
+          <div>
+            <h3>Manage requests</h3>
+            <p>Track, reassign and mark jobs complete with an easy workflow.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="dot">💰</div>
+          <div>
+            <h3>Payments & payouts</h3>
+            <p>Handle payments, fees and provider payouts from one place.</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right: login card -->
+    <section class="card" aria-label="Admin login form">
+      <div class="form-title">
+        <h2>Admin Sign In</h2>
+      </div>
+      <p class="form-sub">Enter admin credentials to access FixItNow dashboard.</p>
+
+      <div class="field">
+        <input class="input" id="email" type="email" placeholder="Admin email" autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <input class="input" id="password" type="password" placeholder="Password" autocomplete="current-password" />
+      </div>
+
+      <button class="btn" id="loginBtn">Sign in</button>
+
+      <p class="small">Need an account? <a class="link" href="register.html">Register (Admin only)</a></p>
+
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

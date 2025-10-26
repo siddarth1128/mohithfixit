@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Role - FixItNow Professional Platform</title>
+  <meta name="description" content="Choose your role on FixItNow - Customer, Service Provider, or Admin. Find services or offer your expertise on our professional platform.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1e3c72;
+      --secondary: #ff6b6b;
+      --accent: #4ecdc4;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --dark: #2d3436;
+      --light: #f8f9fa;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-user: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-provider: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+      --gradient-admin: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f0f4ff 0%, #dfe9f3 100%);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Enhanced Navigation with full-width background */
+    .navbar-container {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    .logo {
+      font-weight: 800;
+      font-size: 32px;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .logo i {
+      font-size: 36px;
+      color: var(--secondary);
+    }
+    
+    .back-btn {
+      padding: 14px 30px;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 40px auto 0;
+    }
+    
+    .back-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(30, 60, 114, 0.3);
+    }
+    
+    /* Enhanced Role Selection Section */
+    .role-selection {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px 0 40px;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(30, 60, 114, 0.1);
+      color: var(--primary);
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    
+    .section-title {
+      font-size: 3.2rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    .roles-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 35px;
+      margin-top: 40px;
+    }
+    
+    .role-card {
+      background: white;
+      border-radius: 25px;
+      padding: 45px 35px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .role-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+    }
+
+    .role-card.user::before {
+      background: var(--gradient-user);
+    }
+
+    .role-card.provider::before {
+      background: var(--gradient-provider);
+    }
+
+    .role-card.admin::before {
+      background: var(--gradient-admin);
+    }
+
+    .role-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .role-card:hover::after {
+      left: 100%;
+    }
+    
+    .role-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+    
+    .role-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      font-size: 40px;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .role-card.user .role-icon {
+      background: var(--gradient-user);
+    }
+
+    .role-card.provider .role-icon {
+      background: var(--gradient-provider);
+    }
+
+    .role-card.admin .role-icon {
+      background: var(--gradient-admin);
+    }
+
+    .role-card:hover .role-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .role-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .role-card.user .role-badge {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+
+    .role-card.provider .role-badge {
+      background: rgba(255, 107, 107, 0.1);
+      color: #ff6b6b;
+    }
+
+    .role-card.admin .role-badge {
+      background: rgba(46, 204, 113, 0.1);
+      color: #2ecc71;
+    }
+    
+    .role-title {
+      font-size: 1.6rem;
+      color: var(--dark);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    
+    .role-description {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-size: 15px;
+      flex-grow: 1;
+    }
+    
+    .role-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 30px;
+      width: 100%;
+    }
+    
+    .role-features li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #555;
+      font-size: 14px;
+      transition: transform 0.3s ease;
+    }
+
+    .role-features li:hover {
+      transform: translateX(5px);
+    }
+    
+    .role-features i {
+      font-size: 14px;
+      min-width: 18px;
+    }
+
+    .role-card.user .role-features i {
+      color: #667eea;
+    }
+
+    .role-card.provider .role-features i {
+      color: #ff6b6b;
+    }
+
+    .role-card.admin .role-features i {
+      color: #2ecc71;
+    }
+    
+    .role-btn {
+      padding: 16px 35px;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .role-card.user .role-btn {
+      background: var(--gradient-user);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .role-card.provider .role-btn {
+      background: var(--gradient-provider);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    }
+
+    .role-card.admin .role-btn {
+      background: var(--gradient-admin);
+      box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
+    }
+
+    .role-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .role-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .role-btn:hover::before {
+      left: 100%;
+    }
+
+    .role-stats {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .role-stat {
+      text-align: center;
+    }
+
+    .role-stat-number {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .role-card.user .role-stat-number {
+      color: #667eea;
+    }
+
+    .role-card.provider .role-stat-number {
+      color: #ff6b6b;
+    }
+
+    .role-card.admin .role-stat-number {
+      color: #2ecc71;
+    }
+
+    .role-stat-label {
+      font-size: 0.8rem;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    /* Button Container */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      width: 100%;
+    }
+    
+    /* Enhanced Footer */
+    .footer {
+      background: var(--primary);
+      color: white;
+      padding: 60px 0 25px;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 50px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-column {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .footer-title {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-logo i {
+      color: var(--secondary);
+    }
+    
+    .footer-description {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-links i {
+      font-size: 12px;
+      color: var(--accent);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    /* Loading Animation */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* PIN Modal Styles */
+    .pin-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    .pin-modal.active {
+      display: flex;
+    }
+
+    .pin-container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: modalAppear 0.3s ease-out;
+    }
+
+    @keyframes modalAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .pin-title {
+      font-size: 1.8rem;
+      color: var(--dark);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .pin-subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 1rem;
+    }
+
+    .pin-input-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .pin-input {
+      width: 50px;
+      height: 60px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    .pin-input:focus {
+      border-color: var(--primary);
+      background: white;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.2);
+    }
+
+    .pin-input.filled {
+      border-color: var(--success);
+      background: rgba(46, 204, 113, 0.05);
+    }
+
+    .pin-input.error {
+      border-color: var(--secondary);
+      background: rgba(255, 107, 107, 0.05);
+    }
+
+    .pin-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .pin-btn {
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .pin-btn:hover {
+      background: #152a52;
+      transform: translateY(-2px);
+    }
+
+    .pin-btn.clear {
+      background: var(--secondary);
+    }
+
+    .pin-btn.clear:hover {
+      background: #e55c5c;
+    }
+
+    .pin-btn.submit {
+      background: var(--success);
+      grid-column: span 2;
+    }
+
+    .pin-btn.submit:hover {
+      background: #27ae60;
+    }
+
+    .pin-error {
+      color: var(--secondary);
+      font-size: 0.9rem;
+      margin-top: 15px;
+      min-height: 20px;
+      font-weight: 500;
+    }
+
+    .pin-success {
+      color: var(--success);
+      font-size: 0.9rem;
+      margin-top: 15px;
+      min-height: 20px;
+      font-weight: 500;
+    }
+
+    .pin-attempts {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .pin-attempts.warning {
+      color: var(--warning);
+    }
+
+    .pin-attempts.danger {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .pin-lockout {
+      color: var(--secondary);
+      font-size: 1rem;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    /* Back Button in PIN Modal */
+    .pin-back-btn {
+      padding: 12px 25px;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .pin-back-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- PIN Modal -->
+  <div class="pin-modal" id="pinModal">
+    <div class="pin-container">
+      <h2 class="pin-title">Admin Access Required</h2>
+      <p class="pin-subtitle">Please enter the admin PIN to continue</p>
+      
+      <div class="pin-input-container">
+        <input type="password" class="pin-input" maxlength="1" id="pin1" autocomplete="off">
+        <input type="password" class="pin-input" maxlength="1" id="pin2" autocomplete="off">
+        <input type="password" class="pin-input" maxlength="1" id="pin3" autocomplete="off">
+        <input type="password" class="pin-input" maxlength="1" id="pin4" autocomplete="off">
+      </div>
+      
+      <div class="pin-buttons">
+        <button class="pin-btn" data-value="1" type="button">1</button>
+        <button class="pin-btn" data-value="2" type="button">2</button>
+        <button class="pin-btn" data-value="3" type="button">3</button>
+        <button class="pin-btn" data-value="4" type="button">4</button>
+        <button class="pin-btn" data-value="5" type="button">5</button>
+        <button class="pin-btn" data-value="6" type="button">6</button>
+        <button class="pin-btn" data-value="7" type="button">7</button>
+        <button class="pin-btn" data-value="8" type="button">8</button>
+        <button class="pin-btn" data-value="9" type="button">9</button>
+        <button class="pin-btn clear" id="clearPin" type="button">C</button>
+        <button class="pin-btn" data-value="0" type="button">0</button>
+        <button class="pin-btn submit" id="submitPin" type="button">Submit</button>
+      </div>
+      
+      <div class="pin-error" id="pinError"></div>
+      <div class="pin-attempts" id="pinAttempts"></div>
+      <div class="pin-lockout" id="pinLockout"></div>
+      
+      <!-- Back Button -->
+      <button class="pin-back-btn" id="pinBackBtn" type="button">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Role Selection
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation with full-width background -->
+  <div class="navbar-container">
+    <nav class="navbar">
+      <a href="welcome.html" class="logo">
+        <i class="fas fa-tools" aria-hidden="true"></i>
+        FixItNow
+      </a>
+    </nav>
+  </div>
+
+  <!-- Enhanced Role Selection Section -->
+  <section class="role-selection">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Get Started</span>
+        <h2 class="section-title">Choose Your Path</h2>
+        <p class="section-subtitle">
+          Select how you want to experience FixItNow. Whether you need services or want to offer your expertise, 
+          we have the perfect platform for you.
+        </p>
+      </div>
+      
+      <div class="roles-container">
+        <!-- User Role Card -->
+        <div class="role-card user" data-role="customer">
+          <div class="role-icon">
+            <i class="fas fa-home" aria-hidden="true"></i>
+          </div>
+          <span class="role-badge">User</span>
+          <h3 class="role-title">Find Services</h3>
+          <p class="role-description">
+            Looking for reliable professionals to handle your home maintenance and repair needs? 
+            Get instant access to verified service providers in your area.
+          </p>
+          
+          <ul class="role-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Book services in under 60 seconds</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Real-time tracking of service requests</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Secure payment with multiple options</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Rate and review service quality</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> 24/7 customer support</li>
+          </ul>
+
+          <div class="role-stats">
+            <div class="role-stat">
+              <span class="role-stat-number">4.8★</span>
+              <span class="role-stat-label">Avg Rating</span>
+            </div>
+          </div>
+          
+          <button class="role-btn" type="button" onclick="selectRole('customer')">
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            Continue as User
+          </button>
+        </div>
+        
+        <!-- Service Provider Role Card -->
+        <div class="role-card provider" data-role="provider">
+          <div class="role-icon">
+            <i class="fas fa-tools" aria-hidden="true"></i>
+          </div>
+          <span class="role-badge">Service Provider</span>
+          <h3 class="role-title">Offer Services</h3>
+          <p class="role-description">
+            Are you a skilled professional ready to grow your business? 
+            Join our platform to connect with customers and build your reputation.
+          </p>
+          
+          <ul class="role-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Showcase your skills and portfolio</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Get matched with local customers</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Manage bookings and schedule</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Secure and timely payments</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Build your professional reputation</li>
+          </ul>
+
+          <div class="role-stats">
+            <div class="role-stat">
+              <span class="role-stat-number">85%</span>
+              <span class="role-stat-label">More Work</span>
+            </div>
+          </div>
+          
+          <button class="role-btn" type="button" onclick="selectRole('provider')">
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            Continue as Provider
+          </button>
+        </div>
+        
+        <!-- Admin Role Card -->
+        <div class="role-card admin" data-role="admin">
+          <div class="role-icon">
+            <i class="fas fa-user-cog" aria-hidden="true"></i>
+          </div>
+          <span class="role-badge">Admin</span>
+          <h3 class="role-title">Manage Platform</h3>
+          <p class="role-description">
+            Oversee platform operations, ensure quality service delivery, and maintain 
+            the highest standards for both users and service providers.
+          </p>
+          
+          <ul class="role-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Monitor platform activity and metrics</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Manage user and provider accounts</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Resolve disputes and issues</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Generate analytics and reports</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Ensure platform quality standards</li>
+          </ul>
+
+          <div class="role-stats">
+            <div class="role-stat">
+              <span class="role-stat-number">99.9%</span>
+              <span class="role-stat-label">Uptime</span>
+            </div>
+            <div class="role-stat">
+              <span class="role-stat-number">24/7</span>
+              <span class="role-stat-label">Monitoring</span>
+            </div>
+          </div>
+          
+          <button class="role-btn" type="button" onclick="selectRole('admin')">
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            Continue as Admin
+          </button>
+        </div>
+      </div>
+      
+      <div class="button-container">
+        <a href="get_started.html" class="back-btn">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Homepage
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Enhanced Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="footer-logo">
+            <i class="fas fa-tools" aria-hidden="true"></i>
+            FixItNow
+          </div>
+          <p class="footer-description">
+            Your trusted partner for professional home services. 
+            Connecting skilled professionals with homeowners for reliable, 
+            quality service experiences.
+          </p>
+          <div class="social-links">
+            <a href="https://facebook.com" class="social-link" aria-label="Visit our Facebook page">
+              <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            </a>
+            <a href="https://twitter.com" class="social-link" aria-label="Visit our Twitter page">
+              <i class="fab fa-twitter" aria-hidden="true"></i>
+            </a>
+            <a href="https://instagram.com" class="social-link" aria-label="Visit our Instagram page">
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://linkedin.com" class="social-link" aria-label="Visit our LinkedIn page">
+              <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3 class="footer-title">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Home</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Services</a></li>
+            <li><a href="how-it-works.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> How It Works</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> About Us</a></li>
+            <li><a href="contact.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">Our Services</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#plumbing"><i class="fas fa-chevron-right" aria-hidden="true"></i> Plumbing</a></li>
+            <li><a href="services.html#electrical"><i class="fas fa-chevron-right" aria-hidden="true"></i> Electrical</a></li>
+            <li><a href="services.html#carpentry"><i class="fas fa-chevron-right" aria-hidden="true"></i> Carpentry</a></li>
+            <li><a href="services.html#appliance"><i class="fas fa-chevron-right" aria-hidden="true"></i> Appliance Repair</a></li>
+            <li><a href="services.html#cleaning"><i class="fas fa-chevron-right" aria-hidden="true"></i> Cleaning</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3 class="footer-title">Contact Info</h3>
+          <ul class="footer-links">
+            <li><a href="tel:+916303048612"><i class="fas fa-phone" aria-hidden="true"></i> +91 6303048612</a></li>
+            <li><a href="mailto:fixitnowweb@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> fixitnowweb@gmail.com</a></li>
+            <li><span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Hyderabad, Telangana, India</span></li>
+            <li><span><i class="fas fa-clock" aria-hidden="true"></i> 24/7 Support Available</span></li>
+            <li><span><i class="fas fa-star" aria-hidden="true"></i> 4.8/5 Customer Rating</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2024 FixItNow. All rights reserved. | Web Based Application Project </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple and working PIN implementation
+    let pinAttempts = 0;
+    const maxPinAttempts = 3;
+    const correctPin = "0000";
+    let isLocked = false;
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hide loading overlay
+      setTimeout(() => {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => {
+          loadingOverlay.style.display = 'none';
+        }, 500);
+      }, 1000);
+
+      setupPinModal();
+    });
+
+    function setupPinModal() {
+      const pinModal = document.getElementById('pinModal');
+      const pinInputs = document.querySelectorAll('.pin-input');
+      const pinButtons = document.querySelectorAll('.pin-btn[data-value]');
+      const clearButton = document.getElementById('clearPin');
+      const submitButton = document.getElementById('submitPin');
+      const backButton = document.getElementById('pinBackBtn');
+
+      // Number buttons
+      pinButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          if (isLocked) return;
+          
+          const value = this.getAttribute('data-value');
+          const emptyInput = Array.from(pinInputs).find(input => !input.value);
+          
+          if (emptyInput) {
+            emptyInput.value = value;
+            emptyInput.classList.add('filled');
+            emptyInput.classList.remove('error');
+            
+            // Move to next input
+            if (emptyInput.nextElementSibling) {
+              emptyInput.nextElementSibling.focus();
+            }
+          }
+        });
+      });
+
+      // Clear button
+      clearButton.addEventListener('click', function() {
+        if (isLocked) return;
+        clearPinInputs();
+      });
+
+      // Submit button
+      submitButton.addEventListener('click', function() {
+        if (isLocked) return;
+        validatePin();
+      });
+
+      // Back button
+      backButton.addEventListener('click', function() {
+        closePinModal();
+      });
+
+      // Handle input navigation
+      pinInputs.forEach((input, index) => {
+        input.addEventListener('input', function(e) {
+          if (e.target.value && index < pinInputs.length - 1) {
+            pinInputs[index + 1].focus();
+          }
+        });
+
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Backspace') {
+            if (!e.target.value && index > 0) {
+              pinInputs[index - 1].focus();
+            }
+          } else if (e.key === 'Enter') {
+            validatePin();
+          }
+        });
+      });
+
+      // Close modal when clicking outside
+      pinModal.addEventListener('click', function(e) {
+        if (e.target === pinModal) {
+          closePinModal();
+        }
+      });
+    }
+
+    function clearPinInputs() {
+      const pinInputs = document.querySelectorAll('.pin-input');
+      pinInputs.forEach(input => {
+        input.value = '';
+        input.classList.remove('filled', 'error');
+      });
+      pinInputs[0].focus();
+      document.getElementById('pinError').textContent = '';
+    }
+
+    function validatePin() {
+      const pinInputs = document.querySelectorAll('.pin-input');
+      const enteredPin = Array.from(pinInputs).map(input => input.value).join('');
+      const pinError = document.getElementById('pinError');
+      const pinAttemptsEl = document.getElementById('pinAttempts');
+      const pinLockout = document.getElementById('pinLockout');
+
+      // Reset error states
+      pinInputs.forEach(input => input.classList.remove('error'));
+      pinError.textContent = '';
+      pinAttemptsEl.textContent = '';
+      pinLockout.textContent = '';
+
+      // Check if PIN is complete
+      if (enteredPin.length < 4) {
+        pinError.textContent = 'Please enter a complete 4-digit PIN';
+        return;
+      }
+
+      // Check lockout status
+      if (isLocked) {
+        pinLockout.textContent = 'System locked. Please try again later.';
+        return;
+      }
+
+      // Validate PIN
+      if (enteredPin === correctPin) {
+        // Correct PIN - Open Admin Interface
+        pinError.style.color = '#2ecc71';
+        pinError.textContent = 'PIN verified successfully! Opening Admin Panel...';
+        
+        setTimeout(() => {
+          closePinModal();
+          // Open Admin Logic - Replace with your admin page URL
+          window.location.href = 'admin/public/Index.html';
+        }, 1000);
+      } else {
+        // Incorrect PIN
+        pinAttempts++;
+        pinInputs.forEach(input => input.classList.add('error'));
+        pinError.textContent = 'Incorrect PIN. Please try again.';
+
+        // Update attempts display
+        const remainingAttempts = maxPinAttempts - pinAttempts;
+        if (remainingAttempts > 0) {
+          pinAttemptsEl.textContent = `${remainingAttempts} attempt${remainingAttempts !== 1 ? 's' : ''} remaining`;
+          
+          if (remainingAttempts <= 1) {
+            pinAttemptsEl.classList.add('danger');
+          } else if (remainingAttempts <= 2) {
+            pinAttemptsEl.classList.add('warning');
+          }
+        }
+
+        // Clear inputs
+        clearPinInputs();
+
+        // Check for lockout
+        if (pinAttempts >= maxPinAttempts) {
+          isLocked = true;
+          pinLockout.textContent = 'Too many failed attempts. System locked for 30 seconds.';
+          
+          setTimeout(() => {
+            isLocked = false;
+            pinAttempts = 0;
+            pinLockout.textContent = '';
+            pinAttemptsEl.textContent = '';
+            pinAttemptsEl.classList.remove('warning', 'danger');
+          }, 30000);
+        }
+      }
+    }
+
+    function openPinModal() {
+      const pinModal = document.getElementById('pinModal');
+      pinModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      clearPinInputs();
+      
+      // Reset state
+      document.getElementById('pinAttempts').textContent = '';
+      document.getElementById('pinLockout').textContent = '';
+      document.getElementById('pinAttempts').classList.remove('warning', 'danger');
+      
+      // Focus first input
+      setTimeout(() => {
+        document.getElementById('pin1').focus();
+      }, 300);
+    }
+
+    function closePinModal() {
+      const pinModal = document.getElementById('pinModal');
+      pinModal.classList.remove('active');
+      document.body.style.overflow = '';
+      clearPinInputs();
+    }
+
+    // Global function for role selection
+    function selectRole(role) {
+      if (role === 'admin') {
+        // Show PIN modal for admin
+        const button = document.querySelector('.role-card.admin .role-btn');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading...';
+        button.disabled = true;
+
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+          openPinModal();
+        }, 800);
+      } else {
+        // Direct redirect for other roles
+        const button = document.querySelector(`.role-card[data-role="${role}"] .role-btn`);
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading...';
+        button.disabled = true;
+
+        setTimeout(() => {
+          const routes = {
+            'customer': 'user_login.html',
+            'provider': 'service/provider_login.html'
+          };
+          
+          if (routes[role]) {
+            window.location.href = routes[role];
+          }
+        }, 1000);
+      }
+    }
+  </script>
+</body>
+</html>

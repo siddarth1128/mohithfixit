@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Portal — Registration</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+    <div class="blob b5"></div>
+  </div>
+
+  <!-- Floating particles -->
+  <div class="particles" aria-hidden="true">
+    <div class="particle p1">🔧</div>
+    <div class="particle p2">⚡</div>
+    <div class="particle p3">🛠️</div>
+    <div class="particle p4">💡</div>
+    <div class="particle p5">🔩</div>
+    <div class="particle p6">⚙️</div>
+  </div>
+
+  <!-- Dark mode toggle -->
+  <button class="mode-toggle" id="modeToggle">🌙</button>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <main class="wrapper">
+    <!-- Left info panel -->
+    <aside class="info">
+      <div class="brand">
+        <div class="brand-icon">
+          <div class="tool-icon">🔧</div>
+        </div>
+        <div>
+          <h1>FixItNow Admin</h1>
+          <p>Professional registration — authorised personnel only.</p>
+        </div>
+      </div>
+      <div style="margin-top:8px;color:var(--muted)">
+        To create an admin account you must enter the company's admin secret key. 
+        This page is for admin onboarding only.
+      </div>
+    </aside>
+
+    <!-- Right: Register card -->
+    <section class="card">
+      <div class="form-title">
+        <h2>Create Admin</h2>
+      </div>
+      <p class="form-sub">Provide basic details and the admin secret key.</p>
+
+      <div class="field"><input class="input" id="name" placeholder="Full name" /></div>
+      <div class="field"><input class="input" id="email" type="email" placeholder="Email" /></div>
+      <div class="field"><input class="input" id="password" type="password" placeholder="Password (min 6 chars)" /></div>
+      <div class="field"><input class="input" id="adminSecret" placeholder="Admin secret key" /></div>
+
+      <button class="btn" id="registerBtn">Create admin</button>
+
+      <p class="small">Already an admin? <a class="link" href="index.html">Sign in</a></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

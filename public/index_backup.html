@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <title>FixItNow - Professional Home Services</title>
+
+        <!-- Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <!-- Theme and Component Styles -->
+        <link rel="stylesheet" href="css/theme.css" />
+        <link rel="stylesheet" href="components/split-text.css" />
+        <link rel="stylesheet" href="components/magic-bento.css" />
+        <link rel="stylesheet" href="components/navigation.css" />
+        <link rel="stylesheet" href="components/pixel-card.css" />
+
+        <!-- Prevent Flash of Unstyled Content -->
+        <script>
+            (function () {
+                const theme = localStorage.getItem("theme") || "light";
+                if (theme === "dark") {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                }
+            })();
+        </script>
+
+        <style>
+            /* Page Specific Styles */
+            .hero-section {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                overflow: hidden;
+                padding: 2rem;
+                background: var(--background);
+            }
+
+            .hero-background {
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+                overflow: hidden;
+            }
+
+            .hero-gradient {
+                position: absolute;
+                inset: 0;
+                background: var(--gradient-primary);
+                opacity: 0.1;
+                animation: gradientShift 15s ease infinite;
+            }
+
+            @keyframes gradientShift {
+                0%,
+                100% {
+                    transform: scale(1) rotate(0deg);
+                }
+                50% {
+                    transform: scale(1.2) rotate(5deg);
+                }
+            }
+
+            .floating-shapes {
+                position: absolute;
+                inset: 0;
+            }
+
+            .shape {
+                position: absolute;
+                opacity: 0.1;
+                animation: float 20s ease-in-out infinite;
+            }
+
+            .shape-1 {
+                width: 100px;
+                height: 100px;
+                background: var(--primary);
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                top: 10%;
+                left: 10%;
+                animation-delay: 0s;
+            }
+
+            .shape-2 {
+                width: 150px;
+                height: 150px;
+                background: var(--accent);
+                border-radius: 50%;
+                top: 60%;
+                right: 10%;
+                animation-delay: 2s;
+            }
+
+            .shape-3 {
+                width: 80px;
+                height: 80px;
+                background: var(--secondary);
+                border-radius: 40% 60% 60% 40% / 40% 50% 50% 40%;
+                bottom: 20%;
+                left: 15%;
+                animation-delay: 4s;
+            }
+
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                33% {
+                    transform: translateY(-30px) rotate(120deg);
+                }
+                66% {
+                    transform: translateY(30px) rotate(240deg);
+                }
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 1;
+                text-align: center;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .hero-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.75rem 1.5rem;
+                background: var(--primary);
+                color: white;
+                border-radius: 50px;
+                font-size: 0.875rem;
+                font-weight: 600;
+                margin-bottom: 2rem;
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .hero-badge:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+            }
+
+            [data-theme="dark"] .hero-badge {
+                background: var(--primary);
+                box-shadow: 0 4px 12px rgba(139, 155, 255, 0.3);
+            }
+
+            [data-theme="dark"] .hero-badge:hover {
+                box-shadow: 0 6px 16px rgba(139, 155, 255, 0.4);
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 8vw, 5rem);
+                font-weight: 800;
+                color: var(--foreground);
+                line-height: 1.2;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: clamp(1rem, 2vw, 1.25rem);
+                color: var(--muted-foreground);
+                line-height: 1.6;
+                margin-bottom: 3rem;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 4rem;
+            }
+
+            .hero-stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 2rem;
+                max-width: 800px;
+                margin: 0 auto;
+                padding-top: 3rem;
+                border-top: 1px solid var(--border);
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+
+            .stat-value {
+                font-size: 2.5rem;
+                font-weight: 800;
+                background: var(--gradient-primary);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.875rem;
+                color: var(--muted-foreground);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 600;
+            }
+
+            .services-section {
+                padding: 6rem 2rem;
+                background: var(--background);
+            }
+
+            .section-header {
+                text-align: center;
+                max-width: 700px;
+                margin: 0 auto 4rem;
+            }
+
+            .section-badge {
+                display: inline-block;
+                padding: 0.5rem 1rem;
+                background: var(--muted);
+                color: var(--primary);
+                border-radius: 50px;
+                font-size: 0.875rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 5vw, 3rem);
+                font-weight: 800;
+                color: var(--foreground);
+                margin-bottom: 1rem;
+            }
+
+            .section-description {
+                font-size: 1.125rem;
+                color: var(--muted-foreground);
+                line-height: 1.6;
+            }
+
+            .features-section {
+                padding: 6rem 2rem;
+                background: var(--muted);
+            }
+
+            .cta-section {
+                padding: 6rem 2rem;
+                background: var(--gradient-primary);
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .cta-section::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+                opacity: 0.3;
+            }
+
+            .cta-content {
+                position: relative;
+                z-index: 1;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .cta-title {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+                font-weight: 800;
+                color: white;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-description {
+                font-size: 1.25rem;
+                color: rgba(255, 255, 255, 0.9);
+                margin-bottom: 2rem;
+                line-height: 1.6;
+            }
+
+            .cta-buttons {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .btn-cta {
+                padding: 1rem 2rem;
+                background: white;
+                color: var(--primary);
+                font-weight: 700;
+                border-radius: var(--radius);
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1rem;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .btn-cta:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .btn-cta-outline {
+                background: transparent;
+                color: white;
+                border: 2px solid white;
+            }
+
+            .btn-cta-outline:hover {
+                background: white;
+                color: var(--primary);
+            }
+
+            footer {
+                padding: 3rem 2rem;
+                background: var(--card);
+                border-top: 1px solid var(--border);
+                text-align: center;
+            }
+
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .footer-links {
+                display: flex;
+                gap: 2rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 2rem;
+            }
+
+            .footer-link {
+                color: var(--muted-foreground);
+                text-decoration: none;
+                font-size: 0.875rem;
+                transition: color 0.3s ease;
+            }
+
+            .footer-link:hover {
+                color: var(--primary);
+            }
+
+            .footer-text {
+                color: var(--muted-foreground);
+                font-size: 0.875rem;
+            }
+
+            @media (max-width: 768px) {
+                .hero-section {
+                    padding: 1rem;
+                    min-height: 90vh;
+                }
+
+                .hero-stats {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1.5rem;
+                }
+
+                .services-section,
+                .features-section {
+                    padding: 4rem 1rem;
+                }
+
+                .cta-section {
+                    padding: 4rem 1rem;
+                }
+
+                footer {
+                    padding: 2rem 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-background">
+                <div class="hero-gradient"></div>
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+            </div>
+
+            <div class="hero-content animate-fadeIn">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Trusted by 10,000+ Customers</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Professional Home Services at Your Fingertips
+                </h1>
+
+                <p class="hero-description">
+                    From plumbing to electrical work, painting to repairs - find
+                    verified service providers near you. Book instantly, track
+                    in real-time, and get quality service guaranteed.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="get_started.html" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Get Started Now
+                    </a>
+                    <a href="about.html" class="btn btn-outline">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">10K+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">500+</span>
+                        <span class="stat-label">Service Providers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">50+</span>
+                        <span class="stat-label">Service Types</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">4.9</span>
+                        <span class="stat-label">Average Rating</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services-section">
+            <div class="section-header">
+                <span class="section-badge">Our Services</span>
+                <h2 class="section-title">What We Offer</h2>
+                <p class="section-description">
+                    Comprehensive home services from trusted professionals, all
+                    in one place
+                </p>
+            </div>
+
+            <div class="magic-bento">
+                <div class="magic-bento-item medium clickable">
+                    <div class="magic-bento-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Plumbing</h3>
+                        <p class="magic-bento-description">
+                            Expert plumbing services for repairs, installations,
+                            and maintenance
+                        </p>
+                    </div>
+                    <div class="magic-bento-footer">
+                        <span style="color: var(--success); font-weight: 600">
+                            <i class="fas fa-check-circle"></i> Available 24/7
+                        </span>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium clickable">
+                    <div
+                        class="magic-bento-icon"
+                        style="background: var(--gradient-secondary)"
+                    >
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Electrical</h3>
+                        <p class="magic-bento-description">
+                            Licensed electricians for all your electrical needs
+                            and safety
+                        </p>
+                    </div>
+                    <div class="magic-bento-footer">
+                        <span style="color: var(--success); font-weight: 600">
+                            <i class="fas fa-check-circle"></i> Certified Pros
+                        </span>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium clickable">
+                    <div
+                        class="magic-bento-icon"
+                        style="background: var(--gradient-accent)"
+                    >
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Painting</h3>
+                        <p class="magic-bento-description">
+                            Professional painters for interior and exterior
+                            projects
+                        </p>
+                    </div>
+                    <div class="magic-bento-footer">
+                        <span style="color: var(--success); font-weight: 600">
+                            <i class="fas fa-check-circle"></i> Quality
+                            Guaranteed
+                        </span>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item large gradient-primary">
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Need Something Else?</h3>
+                        <p class="magic-bento-description">
+                            We offer over 50 different service categories. From
+                            HVAC to landscaping, carpentry to cleaning - we've
+                            got you covered.
+                        </p>
+                    </div>
+                    <div class="magic-bento-footer">
+                        <a
+                            href="get_started.html"
+                            class="btn btn-secondary"
+                            style="background: white; color: var(--primary)"
+                        >
+                            <i class="fas fa-search"></i>
+                            Browse All Services
+                        </a>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium clickable">
+                    <div class="magic-bento-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Carpentry</h3>
+                        <p class="magic-bento-description">
+                            Skilled carpenters for custom work and repairs
+                        </p>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium clickable">
+                    <div
+                        class="magic-bento-icon"
+                        style="background: var(--gradient-secondary)"
+                    >
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Cleaning</h3>
+                        <p class="magic-bento-description">
+                            Professional cleaning services for your home
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="section-header">
+                <span class="section-badge">Why Choose Us</span>
+                <h2 class="section-title">Your Trusted Service Partner</h2>
+                <p class="section-description">
+                    Experience the easiest way to book and manage home services
+                </p>
+            </div>
+
+            <div class="card-nav">
+                <div class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Verified Providers</h3>
+                        <p class="card-nav-description">
+                            All service providers are thoroughly vetted and
+                            background checked for your safety
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Real-Time Tracking</h3>
+                        <p class="card-nav-description">
+                            Track your service provider's location and estimated
+                            arrival time in real-time
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Transparent Pricing</h3>
+                        <p class="card-nav-description">
+                            Know the cost upfront with no hidden fees or
+                            surprise charges
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Quality Guaranteed</h3>
+                        <p class="card-nav-description">
+                            100% satisfaction guarantee or your money back, no
+                            questions asked
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">24/7 Support</h3>
+                        <p class="card-nav-description">
+                            Our customer support team is always available to
+                            help you
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Easy Booking</h3>
+                        <p class="card-nav-description">
+                            Book services in just a few clicks from any device,
+                            anytime, anywhere
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Get Started?</h2>
+                <p class="cta-description">
+                    Join thousands of satisfied customers who trust FixItNow for
+                    all their home service needs
+                </p>
+                <div class="cta-buttons">
+                    <a href="get_started.html" class="btn-cta">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </a>
+                    <a href="user_login.html" class="btn-cta-outline">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="about.html" class="footer-link">About Us</a>
+                    <a href="help.html" class="footer-link">Help Center</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+                <p class="footer-text">
+                    &copy; 2024 FixItNow. All rights reserved. | Professional
+                    Home Services Platform
+                </p>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="js/theme.js"></script>
+        <script src="components/split-text.js"></script>
+
+        <script>
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(
+                        this.getAttribute("href"),
+                    );
+                    if (target) {
+                        target.scrollIntoView({ behavior: "smooth" });
+                    }
+                });
+            });
+
+            // Add click handlers to service cards
+            document
+                .querySelectorAll(".magic-bento-item.clickable")
+                .forEach((item) => {
+                    item.addEventListener("click", () => {
+                        window.location.href = "get_started.html";
+                    });
+                });
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px",
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            }, observerOptions);
+
+            document
+                .querySelectorAll(".magic-bento-item, .card-nav-item")
+                .forEach((el) => {
+                    el.style.opacity = "0";
+                    el.style.transform = "translateY(30px)";
+                    el.style.transition =
+                        "opacity 0.6s ease, transform 0.6s ease";
+                    observer.observe(el);
+                });
+
+            // Counter animation for stats
+            function animateCounter(element, target, duration = 2000) {
+                const start = 0;
+                const originalText = element.textContent;
+                const numericValue = parseFloat(
+                    originalText.replace(/[^0-9.]/g, ""),
+                );
+                const increment = numericValue / (duration / 16);
+                let current = start;
+                const hasPlus = originalText.includes("+");
+                const hasDecimal = originalText.includes(".");
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= numericValue) {
+                        element.textContent = hasDecimal
+                            ? numericValue.toFixed(1)
+                            : numericValue.toLocaleString() +
+                              (hasPlus ? "+" : "");
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = hasDecimal
+                            ? current.toFixed(1)
+                            : Math.round(current).toLocaleString();
+                    }
+                }, 16);
+            }
+
+            // Trigger counter animation when stats come into view
+            const statsObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            animateCounter(entry.target);
+                            statsObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.5 },
+            );
+
+            document.querySelectorAll(".stat-value").forEach((stat) => {
+                statsObserver.observe(stat);
+            });
+        </script>
+    </body>
+</html>

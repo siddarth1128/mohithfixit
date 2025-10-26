@@ -1,0 +1,489 @@
+/* ========================================
+   MagicBento Component - Grid Layout System
+   Based on: https://reactbits.dev/r/MagicBento-JS-CSS
+   ======================================== */
+
+.magic-bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  padding: 2rem;
+}
+
+.magic-bento-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow);
+}
+
+.magic-bento-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+/* ========================================
+   Size Variations
+   ======================================== */
+
+.magic-bento-item.small {
+  grid-column: span 3;
+  grid-row: span 1;
+  min-height: 200px;
+}
+
+.magic-bento-item.medium {
+  grid-column: span 4;
+  grid-row: span 1;
+  min-height: 250px;
+}
+
+.magic-bento-item.large {
+  grid-column: span 6;
+  grid-row: span 2;
+  min-height: 350px;
+}
+
+.magic-bento-item.full {
+  grid-column: span 12;
+  grid-row: span 1;
+  min-height: 200px;
+}
+
+.magic-bento-item.tall {
+  grid-row: span 2;
+}
+
+.magic-bento-item.extra-tall {
+  grid-row: span 3;
+}
+
+/* Custom Span Utilities */
+.magic-bento-item.span-1 { grid-column: span 1; }
+.magic-bento-item.span-2 { grid-column: span 2; }
+.magic-bento-item.span-3 { grid-column: span 3; }
+.magic-bento-item.span-4 { grid-column: span 4; }
+.magic-bento-item.span-5 { grid-column: span 5; }
+.magic-bento-item.span-6 { grid-column: span 6; }
+.magic-bento-item.span-7 { grid-column: span 7; }
+.magic-bento-item.span-8 { grid-column: span 8; }
+.magic-bento-item.span-9 { grid-column: span 9; }
+.magic-bento-item.span-10 { grid-column: span 10; }
+.magic-bento-item.span-11 { grid-column: span 11; }
+.magic-bento-item.span-12 { grid-column: span 12; }
+
+/* Row Span Utilities */
+.magic-bento-item.row-1 { grid-row: span 1; }
+.magic-bento-item.row-2 { grid-row: span 2; }
+.magic-bento-item.row-3 { grid-row: span 3; }
+.magic-bento-item.row-4 { grid-row: span 4; }
+
+/* ========================================
+   Content Layout
+   ======================================== */
+
+.magic-bento-header {
+  margin-bottom: 1rem;
+}
+
+.magic-bento-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.magic-bento-item:hover .magic-bento-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.magic-bento-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.magic-bento-description {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.magic-bento-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.magic-bento-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ========================================
+   Visual Variants
+   ======================================== */
+
+/* Gradient Background */
+.magic-bento-item.gradient-primary {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+}
+
+.magic-bento-item.gradient-primary .magic-bento-title,
+.magic-bento-item.gradient-primary .magic-bento-description {
+  color: white;
+}
+
+.magic-bento-item.gradient-secondary {
+  background: var(--gradient-secondary);
+  color: white;
+  border: none;
+}
+
+.magic-bento-item.gradient-secondary .magic-bento-title,
+.magic-bento-item.gradient-secondary .magic-bento-description {
+  color: white;
+}
+
+.magic-bento-item.gradient-accent {
+  background: var(--gradient-accent);
+  color: white;
+  border: none;
+}
+
+.magic-bento-item.gradient-accent .magic-bento-title,
+.magic-bento-item.gradient-accent .magic-bento-description {
+  color: white;
+}
+
+/* Glass Effect */
+.magic-bento-item.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Bordered Variant */
+.magic-bento-item.bordered {
+  border: 2px solid var(--primary);
+}
+
+/* Shadow Variant */
+.magic-bento-item.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .magic-bento-item.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   Interactive Effects
+   ======================================== */
+
+.magic-bento-item.clickable {
+  cursor: pointer;
+}
+
+.magic-bento-item.clickable:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* Highlight on Hover */
+.magic-bento-item.highlight:hover {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.magic-bento-item.highlight:hover .magic-bento-title,
+.magic-bento-item.highlight:hover .magic-bento-description {
+  color: white;
+}
+
+/* ========================================
+   Background Patterns
+   ======================================== */
+
+.magic-bento-item.pattern-dots {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+.magic-bento-item.pattern-grid {
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ========================================
+   Animation Classes
+   ======================================== */
+
+.magic-bento-item.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.magic-bento-item.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.magic-bento-item.pulse-on-hover:hover {
+  animation: bentoPulse 1s ease-in-out;
+}
+
+@keyframes bentoPulse {
+  0%, 100% {
+    transform: scale(1) translateY(-4px);
+  }
+  50% {
+    transform: scale(1.02) translateY(-6px);
+  }
+}
+
+/* ========================================
+   Badge & Tag Elements
+   ======================================== */
+
+.magic-bento-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.magic-bento-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--muted);
+  color: var(--foreground);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ========================================
+   Stats & Metrics
+   ======================================== */
+
+.magic-bento-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.magic-bento-stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.magic-bento-stat-label {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.magic-bento-stat-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.magic-bento-stat-change.positive {
+  color: var(--success);
+}
+
+.magic-bento-stat-change.negative {
+  color: var(--danger);
+}
+
+/* ========================================
+   Image & Media Support
+   ======================================== */
+
+.magic-bento-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--radius) - 4px);
+  transition: transform 0.3s ease;
+}
+
+.magic-bento-item:hover .magic-bento-image {
+  transform: scale(1.05);
+}
+
+.magic-bento-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.magic-bento-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.magic-bento-item:hover .magic-bento-overlay {
+  opacity: 1;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .magic-bento {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .magic-bento-item.small {
+    grid-column: span 4;
+  }
+
+  .magic-bento-item.medium {
+    grid-column: span 4;
+  }
+
+  .magic-bento-item.large {
+    grid-column: span 8;
+  }
+}
+
+@media (max-width: 768px) {
+  .magic-bento {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .magic-bento-item {
+    padding: 1.5rem;
+  }
+
+  .magic-bento-item.small,
+  .magic-bento-item.medium,
+  .magic-bento-item.large {
+    grid-column: span 4;
+    grid-row: span 1;
+    min-height: 200px;
+  }
+
+  .magic-bento-item.tall,
+  .magic-bento-item.extra-tall {
+    grid-row: span 1;
+  }
+
+  .magic-bento-title {
+    font-size: 1.25rem;
+  }
+
+  .magic-bento-stat-value {
+    font-size: 2rem;
+  }
+
+  .magic-bento-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .magic-bento {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .magic-bento-item {
+    padding: 1.25rem;
+    grid-column: span 1 !important;
+    min-height: 150px !important;
+  }
+
+  .magic-bento-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .magic-bento-badge {
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .magic-bento-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}
+
+/* ========================================
+   Dark Theme Adjustments
+   ======================================== */
+
+[data-theme="dark"] .magic-bento-item.pattern-dots,
+[data-theme="dark"] .magic-bento-item.pattern-grid {
+  background-color: var(--card);
+}
+
+[data-theme="dark"] .magic-bento-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}

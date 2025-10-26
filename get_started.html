@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixItNow - Professional Home Services Platform</title>
+  <meta name="description" content="Professional home services platform - Book verified professionals for plumbing, electrical, carpentry and more with guaranteed quality">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1e3c72;
+      --secondary: #ff6b6b;
+      --accent: #4ecdc4;
+      --dark: #2d3436;
+      --light: #f8f9fa;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-hot: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Enhanced Navigation with Full Width Background */
+    .navbar-container {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    .logo {
+      font-weight: 800;
+      font-size: 32px;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .logo i {
+      font-size: 36px;
+      color: var(--secondary);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 35px;
+    }
+    
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    
+    .nav-links li a:hover {
+      color: var(--primary);
+      background: rgba(30, 60, 114, 0.1);
+    }
+
+    .nav-links li a.active {
+      color: var(--primary);
+      background: rgba(30, 60, 114, 0.1);
+      font-weight: 600;
+    }
+    
+    .get-started-btn {
+      padding: 14px 32px;
+      background: var(--gradient-hot);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+      font-size: 15px;
+    }
+    
+    .get-started-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+    }
+    
+    /* Enhanced Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      padding: 100px 0 80px;
+      min-height: 85vh;
+    }
+    
+    .hero-content {
+      flex: 1;
+    }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gradient);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .hero-title {
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero-description {
+      font-size: 1.25rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 520px;
+    }
+    
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .primary-btn {
+      padding: 18px 45px;
+      background: var(--gradient-hot);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .primary-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+    }
+
+    .secondary-btn {
+      padding: 16px 35px;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .secondary-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+    }
+    
+    .hero-visual {
+      width: 520px;
+      height: 420px;
+      background: var(--gradient);
+      border-radius: 25px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('/Users/bhavu/Library/Mobile Documents/com~apple~CloudDocs/project_2/fixitnow_2/assets/illustrate.png') center/cover no-repeat;
+      border-radius: 25px;
+      opacity: 0.9;
+    }
+
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .floating-element {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: float 6s ease-in-out infinite;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 14px;
+      z-index: 3;
+    }
+
+    .floating-element:nth-child(1) {
+      top: 20%;
+      left: -30px;
+      animation-delay: 0s;
+    }
+
+    .floating-element:nth-child(2) {
+      bottom: 30%;
+      right: -20px;
+      animation-delay: 2s;
+    }
+
+    .floating-element:nth-child(3) {
+      top: 50%;
+      left: -40px;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+    
+    /* Enhanced Services Section */
+    .services {
+      padding: 100px 0;
+      background: white;
+      border-radius: 40px 40px 0 0;
+      margin-top: 50px;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(30, 60, 114, 0.1);
+      color: var(--primary);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .section-title {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 25px;
+      padding: 40px 30px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+    
+    .service-icon {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, var(--light), #e9ecef);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      font-size: 34px;
+      color: var(--primary);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .service-card:hover .service-icon {
+      background: var(--gradient);
+      color: white;
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .service-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    
+    .service-description {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .service-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .service-features li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .service-features i {
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    .service-cta {
+      padding: 12px 30px;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .service-cta:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    /* Enhanced How It Works */
+    .how-it-works {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    }
+    
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+    
+    .step {
+      text-align: center;
+      padding: 45px 30px;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    }
+    
+    .step-number {
+      width: 70px;
+      height: 70px;
+      background: var(--gradient-hot);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 auto 25px;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    }
+    
+    .step-title {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    
+    .step-description {
+      color: #666;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    
+    /* Enhanced CTA Section */
+    .cta {
+      padding: 100px 0;
+      text-align: center;
+      background: white;
+    }
+    
+    .cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-badge {
+      display: inline-block;
+      background: rgba(78, 205, 196, 0.1);
+      color: var(--accent);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    
+    .cta-title {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 25px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    
+    .cta-description {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 45px;
+      line-height: 1.7;
+    }
+
+    .cta-stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 45px;
+    }
+
+    .cta-stat {
+      text-align: center;
+    }
+
+    .cta-stat-number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .cta-stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    /* Enhanced Footer */
+    .footer {
+      background: var(--primary);
+      color: white;
+      padding: 80px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .footer-title {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-logo i {
+      color: var(--secondary);
+    }
+    
+    .footer-description {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-links i {
+      font-size: 12px;
+      color: var(--accent);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    /* Loading Animation */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .hero-title {
+        font-size: 3.2rem;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-visual {
+        width: 450px;
+        height: 380px;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 50px;
+        padding: 80px 0 60px;
+      }
+      
+      .hero-description {
+        margin: 0 auto 35px;
+      }
+      
+      .hero-stats {
+        justify-content: center;
+      }
+      
+      .cta-buttons {
+        justify-content: center;
+      }
+      
+      .hero-image {
+        justify-content: center;
+      }
+      
+      .hero-visual {
+        width: 100%;
+        max-width: 500px;
+        height: 350px;
+      }
+      
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 0;
+      }
+      
+      .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-description {
+        font-size: 1.1rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .cta-title {
+        font-size: 2.2rem;
+      }
+      
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .cta-stats {
+        flex-direction: column;
+        gap: 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .primary-btn, .secondary-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Navigation with Full Width Background -->
+  <div class="navbar-container">
+    <nav class="navbar">
+      <a href="welcome.html" class="logo">
+        <i class="fas fa-tools" aria-hidden="true"></i>
+        FixItNow
+      </a>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="get-started-btn" id="navGetStarted" type="button">
+        <i class="fas fa-rocket" aria-hidden="true"></i>
+        Get Started
+      </button>
+    </nav>
+  </div>
+
+  <div class="container">
+    <!-- Enhanced Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-badge">
+          <i class="fas fa-star" aria-hidden="true"></i> Trusted by 50,000+ Customers
+        </span>
+        <h1 class="hero-title">Professional Home Services On Demand</h1>
+        <p class="hero-description">
+          Experience the future of home services with our AI-powered platform. 
+          Book verified professionals, track services in real-time, and enjoy 
+          guaranteed quality with instant booking and smart scheduling.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number" id="completedServices">12,543</span>
+            <span class="stat-label">Services Completed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="expertPros">856</span>
+            <span class="stat-label">Expert Professionals</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="cities">42</span>
+            <span class="stat-label">Cities Served</span>
+          </div>
+        </div>
+        
+        <div class="cta-buttons">
+          <button class="primary-btn" id="heroGetStarted" type="button">
+            <i class="fas fa-bolt" aria-hidden="true"></i>
+            Book Service Now
+          </button>
+          <button class="secondary-btn" id="learnMore" type="button">
+            <i class="fas fa-play-circle" aria-hidden="true"></i>
+            Watch Demo
+          </button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-visual">
+          <div class="floating-elements">
+            <div class="floating-element">
+              <i class="fas fa-clock" aria-hidden="true"></i> 30 min response
+            </div>
+            <div class="floating-element">
+              <i class="fas fa-shield-alt" aria-hidden="true"></i> 100% Verified
+            </div>
+            <div class="floating-element">
+              <i class="fas fa-dollar-sign" aria-hidden="true"></i> Best Price
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Enhanced Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Our Services</span>
+        <h2 class="section-title">Professional Home Solutions</h2>
+        <p class="section-subtitle">Comprehensive home services delivered by certified professionals with guaranteed quality and satisfaction</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-faucet" aria-hidden="true"></i>
+          </div>
+          <h3 class="service-title">Plumbing Services</h3>
+          <p class="service-description">Complete plumbing solutions including leaks, installations, repairs, and maintenance by certified plumbers.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Leak detection & repair</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Pipe installation</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Drain cleaning</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Emergency services</li>
+          </ul>
+          <button class="service-cta" data-service="plumbing" type="button">
+            Book Plumbing Service
+          </button>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-bolt" aria-hidden="true"></i>
+          </div>
+          <h3 class="service-title">Electrical Work</h3>
+          <p class="service-description">Safe and reliable electrical services including wiring, installations, and repairs by licensed electricians.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Wiring & rewiring</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Fixture installation</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Panel upgrades</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Safety inspections</li>
+          </ul>
+          <button class="service-cta" data-service="electrical" type="button">
+            Book Electrical Service
+          </button>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hammer" aria-hidden="true"></i>
+          </div>
+          <h3 class="service-title">Carpentry & Woodwork</h3>
+          <p class="service-description">Expert carpentry services for furniture, installations, repairs, and custom woodworking projects.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Furniture repair</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Custom woodwork</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Installation services</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Renovation work</li>
+          </ul>
+          <button class="service-cta" data-service="carpentry" type="button">
+            Book Carpentry Service
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Enhanced How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Simple Process</span>
+        <h2 class="section-title">How FixItNow Works</h2>
+        <p class="section-subtitle">Get your home services completed in three simple steps with our streamlined process</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Book Your Service</h3>
+          <p class="step-description">Select the service you need, choose your preferred time slot, and provide details about your requirement through our easy-to-use platform.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Match with Experts</h3>
+          <p class="step-description">Our AI-powered system instantly matches you with the best available professionals in your area based on ratings, proximity, and availability.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Get It Done Right</h3>
+          <p class="step-description">The professional arrives on time, completes the job efficiently, and ensures your complete satisfaction with quality guaranteed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Enhanced CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <span class="cta-badge">Join Today</span>
+        <h2 class="cta-title">Ready to Transform Your Home Experience?</h2>
+        <p class="cta-description">
+          Join thousands of satisfied customers who trust FixItNow for their home service needs. 
+          Experience the difference of professional, reliable, and affordable home services.
+        </p>
+
+        <div class="cta-stats">
+          <div class="cta-stat">
+            <span class="cta-stat-number">4.8/5</span>
+            <span class="cta-stat-label">Customer Rating</span>
+          </div>
+          <div class="cta-stat">
+            <span class="cta-stat-number">98%</span>
+            <span class="cta-stat-label">Satisfaction Rate</span>
+          </div>
+          <div class="cta-stat">
+            <span class="cta-stat-number">24/7</span>
+            <span class="cta-stat-label">Support Available</span>
+          </div>
+        </div>
+        
+        <!-- Centered Start Your Journey Today Button -->
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <button class="primary-btn" id="ctaGetStarted" type="button" style="padding: 20px 50px; font-size: 18px;">
+            <i class="fas fa-rocket" aria-hidden="true"></i>
+            Start Your Journey Today
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Enhanced Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="footer-logo">
+            <i class="fas fa-tools" aria-hidden="true"></i>
+            FixItNow
+          </div>
+          <p class="footer-description">
+            Your trusted partner for professional home services. 
+            We connect you with verified professionals for all your home maintenance and repair needs.
+          </p>
+          <div class="social-links">
+            <a href="https://facebook.com" class="social-link" aria-label="Visit our Facebook page">
+              <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            </a>
+            <a href="https://twitter.com" class="social-link" aria-label="Visit our Twitter page">
+              <i class="fab fa-twitter" aria-hidden="true"></i>
+            </a>
+            <a href="https://instagram.com" class="social-link" aria-label="Visit our Instagram page">
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://linkedin.com" class="social-link" aria-label="Visit our LinkedIn page">
+              <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3 class="footer-title">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Home</a></li>
+            <li><a href="#services"><i class="fas fa-chevron-right" aria-hidden="true"></i> Services</a></li>
+            <li><a href="#how-it-works"><i class="fas fa-chevron-right" aria-hidden="true"></i> How It Works</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> About Us</a></li>
+            <li><a href="#contact"><i class="fas fa-chevron-right" aria-hidden="true"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">Our Services</h3>
+          <ul class="footer-links">
+            <li><a href="services.html#plumbing"><i class="fas fa-chevron-right" aria-hidden="true"></i> Plumbing</a></li>
+            <li><a href="services.html#electrical"><i class="fas fa-chevron-right" aria-hidden="true"></i> Electrical</a></li>
+            <li><a href="services.html#carpentry"><i class="fas fa-chevron-right" aria-hidden="true"></i> Carpentry</a></li>
+            <li><a href="services.html#appliance"><i class="fas fa-chevron-right" aria-hidden="true"></i> Appliance Repair</a></li>
+            <li><a href="services.html#cleaning"><i class="fas fa-chevron-right" aria-hidden="true"></i> Cleaning</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3 class="footer-title">Contact Info</h3>
+          <ul class="footer-links">
+            <li><a href="tel:+916303048612"><i class="fas fa-phone" aria-hidden="true"></i> +91 6303048612</a></li>
+            <li><a href="mailto:fixitnowweb@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> fixitnowweb@gmail.com</a></li>
+            <li><span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Hyderabad, Telangana, India</span></li>
+            <li><span><i class="fas fa-clock" aria-hidden="true"></i> 24/7 Customer Support</span></li>
+            <li><span><i class="fas fa-star" aria-hidden="true"></i> 4.8/5 Rating</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2024 FixItNow. All rights reserved. | Web Based Application Project </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced JavaScript with real functionality
+    class GetStartedPage {
+      constructor() {
+        this.init();
+      }
+
+      init() {
+        this.hideLoading();
+        this.setupEventListeners();
+        this.animateStats();
+        this.setupServiceBookings();
+        this.setupSmoothScroll();
+      }
+
+      hideLoading() {
+        setTimeout(() => {
+          const loadingOverlay = document.getElementById('loadingOverlay');
+          loadingOverlay.style.opacity = '0';
+          setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+          }, 500);
+        }, 1500);
+      }
+
+      setupEventListeners() {
+        // Get Started buttons
+        const getStartedButtons = [
+          document.getElementById('navGetStarted'),
+          document.getElementById('heroGetStarted'),
+          document.getElementById('ctaGetStarted')
+        ];
+
+        getStartedButtons.forEach(button => {
+          if (button) {
+            button.addEventListener('click', () => {
+              this.handleGetStarted();
+            });
+          }
+        });
+
+        // Learn More button
+        const learnMoreBtn = document.getElementById('learnMore');
+        if (learnMoreBtn) {
+          learnMoreBtn.addEventListener('click', () => {
+            this.showDemoModal();
+          });
+        }
+
+        // Service cards
+        document.querySelectorAll('.service-cta').forEach(button => {
+          button.addEventListener('click', (e) => {
+            const service = e.target.getAttribute('data-service');
+            this.bookService(service);
+          });
+        });
+      }
+
+      animateStats() {
+        const stats = [
+          { element: 'completedServices', target: 12543 },
+          { element: 'expertPros', target: 856 },
+          { element: 'cities', target: 42 }
+        ];
+
+        stats.forEach(stat => {
+          this.animateValue(stat.element, 0, stat.target, 2000);
+        });
+      }
+
+      animateValue(id, start, end, duration) {
+        const element = document.getElementById(id);
+        if (!element) return;
+        
+        const range = end - start;
+        const increment = end > start ? 1 : -1;
+        const stepTime = Math.abs(Math.floor(duration / range));
+        let current = start;
+
+        const timer = setInterval(() => {
+          current += increment;
+          element.textContent = current.toLocaleString();
+          
+          if (current === end) {
+            clearInterval(timer);
+          }
+        }, stepTime);
+      }
+
+      setupServiceBookings() {
+        document.querySelectorAll('.service-card').forEach(card => {
+          card.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('service-cta')) {
+              const service = card.querySelector('.service-title').textContent;
+              this.showServiceDetails(service);
+            }
+          });
+        });
+      }
+
+      setupSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const target = document.querySelector(targetId);
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+      }
+
+      handleGetStarted() {
+        // Show loading state
+        const buttons = document.querySelectorAll('.primary-btn, .get-started-btn');
+        buttons.forEach(btn => {
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading...';
+          btn.disabled = true;
+
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            window.location.href = 'role_selection.html';
+          }, 1000);
+        });
+      }
+
+      bookService(service) {
+        // Store selected service and redirect to booking
+        sessionStorage.setItem('selectedService', service);
+        
+        // Show booking confirmation
+        this.showBookingModal(service);
+      }
+
+      showServiceDetails(service) {
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 10000;
+          backdrop-filter: blur(5px);
+        `;
+        
+        modal.innerHTML = `
+          <div style="background: white; padding: 40px; border-radius: 20px; max-width: 500px; width: 90%; text-align: center;">
+            <h3 style="color: var(--primary); margin-bottom: 20px;">${service}</h3>
+            <p style="color: #666; margin-bottom: 30px; line-height: 1.6;">
+              Ready to book this service? Our professionals are available to help you with ${service.toLowerCase()}.
+            </p>
+            <button type="button" onclick="this.closest('div').parentElement.remove()" 
+                    style="padding: 12px 30px; background: #666; color: white; border: none; border-radius: 10px; margin-right: 10px;">
+              Close
+            </button>
+            <button type="button" onclick="window.location.href='role_selection.html'" 
+                    style="padding: 12px 30px; background: var(--gradient-hot); color: white; border: none; border-radius: 10px;">
+              Book Now
+            </button>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) modal.remove();
+        });
+      }
+
+      showBookingModal(service) {
+        // Similar to showServiceDetails but with booking form
+        setTimeout(() => {
+          window.location.href = 'role_selection.html';
+        }, 500);
+      }
+
+      showDemoModal() {
+        alert('🎬 Demo Video\n\nThis would show a product demo video in the full application. Redirecting to role selection...');
+        setTimeout(() => {
+          window.location.href = 'role_selection.html';
+        }, 1000);
+      }
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', () => {
+      new GetStartedPage();
+    });
+
+    // Add intersection observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const animatedElements = document.querySelectorAll('.service-card, .step, .stat');
+      animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

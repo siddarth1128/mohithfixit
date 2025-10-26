@@ -1,0 +1,241 @@
+/* ========================================
+   SplitText Component - Animated Text Effects
+   Based on: https://reactbits.dev/r/SplitText-JS-CSS
+   ======================================== */
+
+.split-text-container {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.split-text {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.split-text-word {
+  display: inline-flex;
+  margin-right: 0.25em;
+  white-space: nowrap;
+}
+
+.split-text-char {
+  display: inline-block;
+  transform-origin: center bottom;
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   Animation Variants
+   ======================================== */
+
+/* Fade In Animation */
+.split-text-fade .split-text-char {
+  opacity: 0;
+  animation: fadeInChar 0.6s ease forwards;
+}
+
+.split-text-fade .split-text-char:nth-child(1) { animation-delay: 0.05s; }
+.split-text-fade .split-text-char:nth-child(2) { animation-delay: 0.1s; }
+.split-text-fade .split-text-char:nth-child(3) { animation-delay: 0.15s; }
+.split-text-fade .split-text-char:nth-child(4) { animation-delay: 0.2s; }
+.split-text-fade .split-text-char:nth-child(5) { animation-delay: 0.25s; }
+.split-text-fade .split-text-char:nth-child(6) { animation-delay: 0.3s; }
+.split-text-fade .split-text-char:nth-child(7) { animation-delay: 0.35s; }
+.split-text-fade .split-text-char:nth-child(8) { animation-delay: 0.4s; }
+.split-text-fade .split-text-char:nth-child(9) { animation-delay: 0.45s; }
+.split-text-fade .split-text-char:nth-child(10) { animation-delay: 0.5s; }
+.split-text-fade .split-text-char:nth-child(n+11) { animation-delay: 0.55s; }
+
+@keyframes fadeInChar {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide Up Animation */
+.split-text-slide-up .split-text-char {
+  opacity: 0;
+  transform: translateY(100%);
+  animation: slideUpChar 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.split-text-slide-up .split-text-char:nth-child(1) { animation-delay: 0.05s; }
+.split-text-slide-up .split-text-char:nth-child(2) { animation-delay: 0.1s; }
+.split-text-slide-up .split-text-char:nth-child(3) { animation-delay: 0.15s; }
+.split-text-slide-up .split-text-char:nth-child(4) { animation-delay: 0.2s; }
+.split-text-slide-up .split-text-char:nth-child(5) { animation-delay: 0.25s; }
+.split-text-slide-up .split-text-char:nth-child(6) { animation-delay: 0.3s; }
+.split-text-slide-up .split-text-char:nth-child(7) { animation-delay: 0.35s; }
+.split-text-slide-up .split-text-char:nth-child(8) { animation-delay: 0.4s; }
+.split-text-slide-up .split-text-char:nth-child(9) { animation-delay: 0.45s; }
+.split-text-slide-up .split-text-char:nth-child(10) { animation-delay: 0.5s; }
+.split-text-slide-up .split-text-char:nth-child(n+11) { animation-delay: 0.55s; }
+
+@keyframes slideUpChar {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Wave Animation */
+.split-text-wave .split-text-char {
+  animation: waveChar 1.5s ease-in-out infinite;
+}
+
+.split-text-wave .split-text-char:nth-child(1) { animation-delay: 0s; }
+.split-text-wave .split-text-char:nth-child(2) { animation-delay: 0.1s; }
+.split-text-wave .split-text-char:nth-child(3) { animation-delay: 0.2s; }
+.split-text-wave .split-text-char:nth-child(4) { animation-delay: 0.3s; }
+.split-text-wave .split-text-char:nth-child(5) { animation-delay: 0.4s; }
+.split-text-wave .split-text-char:nth-child(6) { animation-delay: 0.5s; }
+.split-text-wave .split-text-char:nth-child(7) { animation-delay: 0.6s; }
+.split-text-wave .split-text-char:nth-child(8) { animation-delay: 0.7s; }
+.split-text-wave .split-text-char:nth-child(9) { animation-delay: 0.8s; }
+.split-text-wave .split-text-char:nth-child(10) { animation-delay: 0.9s; }
+.split-text-wave .split-text-char:nth-child(n+11) { animation-delay: 1s; }
+
+@keyframes waveChar {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Rotate Animation */
+.split-text-rotate .split-text-char {
+  opacity: 0;
+  transform: rotateY(90deg);
+  animation: rotateChar 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.split-text-rotate .split-text-char:nth-child(1) { animation-delay: 0.05s; }
+.split-text-rotate .split-text-char:nth-child(2) { animation-delay: 0.1s; }
+.split-text-rotate .split-text-char:nth-child(3) { animation-delay: 0.15s; }
+.split-text-rotate .split-text-char:nth-child(4) { animation-delay: 0.2s; }
+.split-text-rotate .split-text-char:nth-child(5) { animation-delay: 0.25s; }
+.split-text-rotate .split-text-char:nth-child(6) { animation-delay: 0.3s; }
+.split-text-rotate .split-text-char:nth-child(7) { animation-delay: 0.35s; }
+.split-text-rotate .split-text-char:nth-child(8) { animation-delay: 0.4s; }
+.split-text-rotate .split-text-char:nth-child(9) { animation-delay: 0.45s; }
+.split-text-rotate .split-text-char:nth-child(10) { animation-delay: 0.5s; }
+.split-text-rotate .split-text-char:nth-child(n+11) { animation-delay: 0.55s; }
+
+@keyframes rotateChar {
+  to {
+    opacity: 1;
+    transform: rotateY(0deg);
+  }
+}
+
+/* Scale Animation */
+.split-text-scale .split-text-char {
+  opacity: 0;
+  transform: scale(0);
+  animation: scaleChar 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.split-text-scale .split-text-char:nth-child(1) { animation-delay: 0.05s; }
+.split-text-scale .split-text-char:nth-child(2) { animation-delay: 0.1s; }
+.split-text-scale .split-text-char:nth-child(3) { animation-delay: 0.15s; }
+.split-text-scale .split-text-char:nth-child(4) { animation-delay: 0.2s; }
+.split-text-scale .split-text-char:nth-child(5) { animation-delay: 0.25s; }
+.split-text-scale .split-text-char:nth-child(6) { animation-delay: 0.3s; }
+.split-text-scale .split-text-char:nth-child(7) { animation-delay: 0.35s; }
+.split-text-scale .split-text-char:nth-child(8) { animation-delay: 0.4s; }
+.split-text-scale .split-text-char:nth-child(9) { animation-delay: 0.45s; }
+.split-text-scale .split-text-char:nth-child(10) { animation-delay: 0.5s; }
+.split-text-scale .split-text-char:nth-child(n+11) { animation-delay: 0.55s; }
+
+@keyframes scaleChar {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Gradient Text Effect */
+.split-text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .split-text-gradient {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hover Effects */
+.split-text-hover .split-text-char {
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.split-text-hover .split-text-char:hover {
+  color: var(--primary);
+  transform: translateY(-5px) scale(1.2);
+}
+
+/* Blur Effect */
+.split-text-blur .split-text-char {
+  filter: blur(8px);
+  opacity: 0;
+  animation: blurChar 0.6s ease forwards;
+}
+
+.split-text-blur .split-text-char:nth-child(1) { animation-delay: 0.05s; }
+.split-text-blur .split-text-char:nth-child(2) { animation-delay: 0.1s; }
+.split-text-blur .split-text-char:nth-child(3) { animation-delay: 0.15s; }
+.split-text-blur .split-text-char:nth-child(4) { animation-delay: 0.2s; }
+.split-text-blur .split-text-char:nth-child(5) { animation-delay: 0.25s; }
+.split-text-blur .split-text-char:nth-child(6) { animation-delay: 0.3s; }
+.split-text-blur .split-text-char:nth-child(7) { animation-delay: 0.35s; }
+.split-text-blur .split-text-char:nth-child(8) { animation-delay: 0.4s; }
+.split-text-blur .split-text-char:nth-child(9) { animation-delay: 0.45s; }
+.split-text-blur .split-text-char:nth-child(10) { animation-delay: 0.5s; }
+.split-text-blur .split-text-char:nth-child(n+11) { animation-delay: 0.55s; }
+
+@keyframes blurChar {
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+  .split-text-char {
+    transition: all 0.2s ease;
+  }
+
+  @keyframes waveChar {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .split-text-word {
+    margin-right: 0.2em;
+  }
+}

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>FixItNow - Component Showcase</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme and Component Styles -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="components/split-text.css">
+    <link rel="stylesheet" href="components/magic-bento.css">
+    <link rel="stylesheet" href="components/navigation.css">
+    <link rel="stylesheet" href="components/pixel-card.css">
+
+    <!-- Prevent FOUC -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
+    <style>
+        /* Showcase specific styles */
+        .showcase-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .showcase-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: var(--gradient-primary);
+            color: white;
+            margin-bottom: 4rem;
+            border-radius: var(--radius);
+        }
+
+        .showcase-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .showcase-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            color: white;
+        }
+
+        .showcase-section {
+            margin-bottom: 6rem;
+        }
+
+        .showcase-section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .showcase-section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .showcase-section-description {
+            color: var(--muted-foreground);
+            font-size: 1rem;
+        }
+
+        .showcase-example {
+            margin-bottom: 3rem;
+        }
+
+        .showcase-example-header {
+            margin-bottom: 1rem;
+        }
+
+        .showcase-example-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.25rem;
+        }
+
+        .showcase-example-code {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            font-family: 'Courier New', monospace;
+        }
+
+        .showcase-demo {
+            padding: 2rem;
+            background: var(--muted);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .code-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .color-label {
+            display: block;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-demo {
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .showcase-container {
+                padding: 1rem;
+            }
+
+            .showcase-header {
+                padding: 3rem 1rem;
+            }
+
+            .showcase-section {
+                margin-bottom: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Showcase Container -->
+    <div class="showcase-container">
+        <!-- Header -->
+        <div class="showcase-header">
+            <h1 data-split-text data-split-type="chars" data-split-animation="fade">Component Showcase</h1>
+            <p>Explore FixItNow's modern UI component library with dark/light theme support</p>
+        </div>
+
+        <!-- Theme Colors -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">Theme Colors</h2>
+                <p class="showcase-section-description">CSS variables that automatically adapt to dark/light mode</p>
+            </div>
+
+            <div class="showcase-demo" style="text-align: center;">
+                <div style="display: inline-block;">
+                    <div class="color-swatch" style="background: var(--primary);"></div>
+                    <span class="color-label">Primary</span>
+                </div>
+                <div style="display: inline-block;">
+                    <div class="color-swatch" style="background: var(--secondary);"></div>
+                    <span class="color-label">Secondary</span>
+                </div>
+                <div style="display: inline-block;">
+                    <div class="color-swatch" style="background: var(--accent);"></div>
+                    <span class="color-label">Accent</span>
+                </div>
+                <div style="display: inline-block;">
+                    <div class="color-swatch" style="background: var(--success);"></div>
+                    <span class="color-label">Success</span>
+                </div>
+                <div style="display: inline-block;">
+                    <div class="color-swatch" style="background: var(--warning);"></div>
+                    <span class="color-label">Warning</span>
+                </div>
+                <div style="display: inline-block;">
+                    <div class="color-swatch" style="background: var(--danger);"></div>
+                    <span class="color-label">Danger</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">Buttons</h2>
+                <p class="showcase-section-description">Various button styles with hover effects</p>
+            </div>
+
+            <div class="showcase-demo">
+                <div class="button-group">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Primary Button
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-star"></i> Secondary
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-heart"></i> Outline
+                    </button>
+                    <button class="btn btn-ghost">
+                        <i class="fas fa-ghost"></i> Ghost
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SplitText Component -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">SplitText - Animated Text</h2>
+                <p class="showcase-section-description">Character-by-character text animations</p>
+            </div>
+
+            <div class="showcase-example">
+                <div class="showcase-example-header">
+                    <h3 class="showcase-example-title">Fade Animation</h3>
+                </div>
+                <div class="showcase-demo">
+                    <h1 data-split-text data-split-type="chars" data-split-animation="fade" data-split-gradient="true">
+                        Welcome to FixItNow
+                    </h1>
+                </div>
+            </div>
+
+            <div class="showcase-example">
+                <div class="showcase-example-header">
+                    <h3 class="showcase-example-title">Wave Animation</h3>
+                </div>
+                <div class="showcase-demo">
+                    <h2 data-split-text data-split-type="chars" data-split-animation="wave" style="color: var(--primary);">
+                        Professional Services
+                    </h2>
+                </div>
+            </div>
+
+            <div class="showcase-example">
+                <div class="showcase-example-header">
+                    <h3 class="showcase-example-title">Slide Up Animation</h3>
+                </div>
+                <div class="showcase-demo">
+                    <h2 data-split-text data-split-type="chars" data-split-animation="slide-up">
+                        At Your Fingertips
+                    </h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- MagicBento Grid -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">MagicBento - Grid Layout</h2>
+                <p class="showcase-section-description">Flexible grid system with varying sizes</p>
+            </div>
+
+            <div class="magic-bento">
+                <div class="magic-bento-item medium">
+                    <div class="magic-bento-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Fast Delivery</h3>
+                        <p class="magic-bento-description">Quick service response times guaranteed</p>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium">
+                    <div class="magic-bento-icon" style="background: var(--gradient-secondary);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Verified Pros</h3>
+                        <p class="magic-bento-description">All professionals are background checked</p>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium">
+                    <div class="magic-bento-icon" style="background: var(--gradient-accent);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Top Rated</h3>
+                        <p class="magic-bento-description">4.9 average rating from customers</p>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item large gradient-primary">
+                    <div class="magic-bento-header">
+                        <h3 class="magic-bento-title">Featured Service</h3>
+                    </div>
+                    <div class="magic-bento-content">
+                        <p class="magic-bento-description">
+                            Get 20% off your first booking! Professional services at unbeatable prices.
+                        </p>
+                        <div class="magic-bento-stat">
+                            <span class="magic-bento-stat-value" style="color: white;">10,000+</span>
+                            <span class="magic-bento-stat-label" style="color: rgba(255,255,255,0.8);">Happy Customers</span>
+                        </div>
+                    </div>
+                    <div class="magic-bento-footer">
+                        <button class="btn" style="background: white; color: var(--primary);">
+                            <i class="fas fa-arrow-right"></i> Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium glass">
+                    <div class="magic-bento-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">24/7 Support</h3>
+                        <p class="magic-bento-description">Round the clock customer service</p>
+                    </div>
+                </div>
+
+                <div class="magic-bento-item medium bordered">
+                    <div class="magic-bento-badge">NEW</div>
+                    <div class="magic-bento-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="magic-bento-content">
+                        <h3 class="magic-bento-title">Mobile App</h3>
+                        <p class="magic-bento-description">Download our app for easier booking</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CardNav Navigation -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">CardNav - Navigation Cards</h2>
+                <p class="showcase-section-description">Large, interactive navigation cards</p>
+            </div>
+
+            <div class="card-nav">
+                <a href="#" class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Plumbing</h3>
+                        <p class="card-nav-description">Expert plumbing services for all your needs</p>
+                    </div>
+                    <i class="fas fa-arrow-right card-nav-arrow"></i>
+                </a>
+
+                <a href="#" class="card-nav-item active">
+                    <div class="card-nav-badge">Popular</div>
+                    <div class="card-nav-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Electrical</h3>
+                        <p class="card-nav-description">Licensed electricians available 24/7</p>
+                    </div>
+                    <i class="fas fa-arrow-right card-nav-arrow"></i>
+                </a>
+
+                <a href="#" class="card-nav-item">
+                    <div class="card-nav-icon">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <div class="card-nav-content">
+                        <h3 class="card-nav-title">Painting</h3>
+                        <p class="card-nav-description">Professional painting services</p>
+                    </div>
+                    <i class="fas fa-arrow-right card-nav-arrow"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- PillNav Navigation -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">PillNav - Tab Navigation</h2>
+                <p class="showcase-section-description">Modern pill-style navigation tabs</p>
+            </div>
+
+            <div class="showcase-example">
+                <div class="showcase-example-header">
+                    <h3 class="showcase-example-title">Standard Pills</h3>
+                </div>
+                <div class="showcase-demo nav-demo">
+                    <div class="pill-nav">
+                        <button class="pill-nav-item active">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </button>
+                        <button class="pill-nav-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Bookings</span>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="pill-nav-item">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </button>
+                        <button class="pill-nav-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="showcase-example">
+                <div class="showcase-example-header">
+                    <h3 class="showcase-example-title">Vertical Pills</h3>
+                </div>
+                <div class="showcase-demo nav-demo">
+                    <div class="pill-nav vertical" style="max-width: 300px;">
+                        <button class="pill-nav-item active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Overview</span>
+                        </button>
+                        <button class="pill-nav-item">
+                            <i class="fas fa-list"></i>
+                            <span>Services</span>
+                        </button>
+                        <button class="pill-nav-item">
+                            <i class="fas fa-history"></i>
+                            <span>History</span>
+                            <span class="badge">12</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PixelCard Component -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">PixelCard - Retro Style</h2>
+                <p class="showcase-section-description">Pixel-art inspired cards with retro gaming aesthetics</p>
+            </div>
+
+            <div class="showcase-example">
+                <div class="showcase-example-header">
+                    <h3 class="showcase-example-title">Standard Pixel Card</h3>
+                </div>
+                <div class="showcase-demo">
+                    <div class="pixel-card pixel-border-2" style="max-width: 400px;">
+                        <div class="pixel-badge">HOT</div>
+
+                        <div class="pixel-card-header">
+                            <div class="pixel-card-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h3 class="pixel-card-title">Achievement</h3>
+                        </div>
+
+                        <div class="pixel-card-content">
+                            <p class="pixel-card-text">Complete 10 service bookings</p>
+
+                            <div class="pixel-card-stat">
+                                <span class="pixel-card-stat-label">Progress</span>
+                                <span class="pixel-card-stat-value">7/10</span>
+                            </div>
+
+                            <div class="pixel-progress">
+                                <div class="pixel-progress-bar" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <div class="pixel-card-footer">
+                            <button class="pixel-btn">Continue</button>
+                            <button class="pixel-btn pixel-btn-outline">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="showcase-example">
+                <div class="showcase-example-header">
+                    <h3 class="showcase-example-title">Retro Themes</h3>
+                </div>
+                <div class="showcase-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div class="pixel-card retro-gameboy small">
+                            <div class="pixel-card-header">
+                                <h4 class="pixel-card-title">Game Boy</h4>
+                            </div>
+                            <div class="pixel-card-content">
+                                <p class="pixel-card-text">Classic green theme</p>
+                            </div>
+                        </div>
+
+                        <div class="pixel-card retro-nes small">
+                            <div class="pixel-card-header">
+                                <h4 class="pixel-card-title">NES</h4>
+                            </div>
+                            <div class="pixel-card-content">
+                                <p class="pixel-card-text">Nintendo red theme</p>
+                            </div>
+                        </div>
+
+                        <div class="pixel-card retro-sega small">
+                            <div class="pixel-card-header">
+                                <h4 class="pixel-card-title">Sega</h4>
+                            </div>
+                            <div class="pixel-card-content">
+                                <p class="pixel-card-text">Sega blue theme</p>
+                            </div>
+                        </div>
+
+                        <div class="pixel-card retro-arcade small">
+                            <div class="pixel-card-header">
+                                <h4 class="pixel-card-title">Arcade</h4>
+                            </div>
+                            <div class="pixel-card-content">
+                                <p class="pixel-card-text">Terminal green</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forms -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">Form Elements</h2>
+                <p class="showcase-section-description">Form inputs with theme support</p>
+            </div>
+
+            <div class="showcase-demo">
+                <div class="card" style="max-width: 500px;">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" placeholder="your@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Service Type</label>
+                        <select class="form-select">
+                            <option>Choose a service...</option>
+                            <option>Plumbing</option>
+                            <option>Electrical</option>
+                            <option>Painting</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Additional Notes</label>
+                        <textarea class="form-textarea" placeholder="Tell us more about your service needs..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        <i class="fas fa-check"></i> Submit Request
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards -->
+        <section class="showcase-section">
+            <div class="showcase-section-header">
+                <h2 class="showcase-section-title">Cards</h2>
+                <p class="showcase-section-description">Standard card component</p>
+            </div>
+
+            <div class="showcase-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Basic Card</h3>
+                            <p class="card-description">Simple card with header and content</p>
+                        </div>
+                        <div class="card-content">
+                            <p>This is the card content area. You can add any content here.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-ghost">Cancel</button>
+                            <button class="btn btn-primary">Confirm</button>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Glass Card</h3>
+                            <p class="card-description">Card with glass morphism effect</p>
+                        </div>
+                        <div class="card-content">
+                            <p>Beautiful semi-transparent background with blur effect.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 3rem 0; border-top: 1px solid var(--border); margin-top: 4rem;">
+            <p style="color: var(--muted-foreground);">
+                <strong>FixItNow Component Library</strong><br>
+                Built with modern CSS and JavaScript<br>
+                <a href="README_THEME_SYSTEM.md" style="color: var(--primary);">View Documentation</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="components/split-text.js"></script>
+
+    <script>
+        // Add interactive functionality to pill nav
+        document.querySelectorAll('.pill-nav').forEach(nav => {
+            nav.querySelectorAll('.pill-nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    nav.querySelectorAll('.pill-nav-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.showcase-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

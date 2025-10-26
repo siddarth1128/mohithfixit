@@ -1,0 +1,623 @@
+/* ========================================
+   PixelCard Component - Retro Pixel Effects
+   Based on: https://reactbits.dev/r/PixelCard-JS-CSS
+   ======================================== */
+
+.pixel-card {
+  position: relative;
+  background: var(--card);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Pixel Border Effect */
+.pixel-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0,
+    linear-gradient(180deg, var(--border) 1px, transparent 1px) 0 0;
+  background-size: 8px 8px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.pixel-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background:
+    linear-gradient(0deg, var(--primary) 2px, transparent 2px) 0 0,
+    linear-gradient(90deg, var(--primary) 2px, transparent 2px) 0 0,
+    linear-gradient(180deg, var(--primary) 2px, transparent 2px) 0 100%,
+    linear-gradient(270deg, var(--primary) 2px, transparent 2px) 100% 0;
+  background-size: 8px 8px, 8px 8px, 8px 8px, 8px 8px;
+  background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pixel-card:hover::after {
+  opacity: 1;
+}
+
+/* ========================================
+   Pixel Border Variants
+   ======================================== */
+
+.pixel-card.pixel-border-1 {
+  box-shadow:
+    2px 0 0 var(--border),
+    -2px 0 0 var(--border),
+    0 2px 0 var(--border),
+    0 -2px 0 var(--border),
+    4px 4px 0 var(--border),
+    -4px -4px 0 var(--border),
+    4px -4px 0 var(--border),
+    -4px 4px 0 var(--border);
+}
+
+.pixel-card.pixel-border-2 {
+  box-shadow:
+    3px 0 0 var(--primary),
+    -3px 0 0 var(--primary),
+    0 3px 0 var(--primary),
+    0 -3px 0 var(--primary),
+    3px 3px 0 var(--primary),
+    -3px -3px 0 var(--primary),
+    3px -3px 0 var(--primary),
+    -3px 3px 0 var(--primary);
+}
+
+.pixel-card.pixel-border-3 {
+  box-shadow:
+    4px 0 0 var(--accent),
+    -4px 0 0 var(--accent),
+    0 4px 0 var(--accent),
+    0 -4px 0 var(--accent),
+    8px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.pixel-card.pixel-border-retro {
+  box-shadow:
+    6px 0 0 #ff6b6b,
+    -6px 0 0 #4ecdc4,
+    0 6px 0 #ffe66d,
+    0 -6px 0 #a8e6cf;
+}
+
+/* ========================================
+   8-bit Style Border
+   ======================================== */
+
+.pixel-card.bit-8 {
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+  );
+  border: 2px solid var(--primary);
+}
+
+/* ========================================
+   Pixel Card Header
+   ======================================== */
+
+.pixel-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--border);
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--border) 0,
+    var(--border) 4px,
+    transparent 4px,
+    transparent 8px
+  ) 1;
+}
+
+.pixel-card-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+  );
+  transition: transform 0.3s ease;
+}
+
+.pixel-card:hover .pixel-card-icon {
+  transform: scale(1.1);
+  animation: pixelBounce 0.6s ease;
+}
+
+@keyframes pixelBounce {
+  0%, 100% { transform: scale(1.1); }
+  25% { transform: scale(1.15) translateY(-4px); }
+  50% { transform: scale(1.1) translateY(0); }
+  75% { transform: scale(1.15) translateY(-2px); }
+}
+
+.pixel-card-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--foreground);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 var(--border);
+  font-family: 'Courier New', monospace;
+}
+
+/* ========================================
+   Pixel Card Content
+   ======================================== */
+
+.pixel-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pixel-card-text {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-family: 'Courier New', monospace;
+}
+
+.pixel-card-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--muted);
+  clip-path: polygon(
+    0 2px, 2px 2px, 2px 0,
+    calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px,
+    100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%,
+    2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px)
+  );
+}
+
+.pixel-card-stat-label {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Courier New', monospace;
+}
+
+.pixel-card-stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+}
+
+/* ========================================
+   Pixel Card Footer
+   ======================================== */
+
+.pixel-card-footer {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 3px solid var(--border);
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--border) 0,
+    var(--border) 4px,
+    transparent 4px,
+    transparent 8px
+  ) 1;
+}
+
+/* ========================================
+   Pixel Button
+   ======================================== */
+
+.pixel-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  font-family: 'Courier New', monospace;
+  border: none;
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+  );
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.pixel-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.pixel-btn-secondary {
+  background: var(--gradient-secondary);
+}
+
+.pixel-btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 3px solid var(--primary);
+  clip-path: none;
+}
+
+/* ========================================
+   Pixel Badge
+   ======================================== */
+
+.pixel-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--danger);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Courier New', monospace;
+  clip-path: polygon(
+    0 2px, 2px 2px, 2px 0,
+    calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px,
+    100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%,
+    2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px)
+  );
+  animation: pixelPulse 2s ease-in-out infinite;
+}
+
+@keyframes pixelPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ========================================
+   Pixel Progress Bar
+   ======================================== */
+
+.pixel-progress {
+  width: 100%;
+  height: 24px;
+  background: var(--muted);
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(
+    0 2px, 2px 2px, 2px 0,
+    calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px,
+    100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%,
+    2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px)
+  );
+}
+
+.pixel-progress-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.pixel-progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    rgba(255, 255, 255, 0.1) 4px,
+    rgba(255, 255, 255, 0.1) 8px
+  );
+  animation: pixelMove 1s linear infinite;
+}
+
+@keyframes pixelMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(8px); }
+}
+
+/* ========================================
+   Retro Color Themes
+   ======================================== */
+
+.pixel-card.retro-gameboy {
+  background: #9bbc0f;
+  color: #0f380f;
+}
+
+.pixel-card.retro-gameboy .pixel-card-title,
+.pixel-card.retro-gameboy .pixel-card-text {
+  color: #0f380f;
+}
+
+.pixel-card.retro-nes {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+}
+
+.pixel-card.retro-nes .pixel-card-title,
+.pixel-card.retro-nes .pixel-card-text {
+  color: white;
+}
+
+.pixel-card.retro-sega {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+}
+
+.pixel-card.retro-sega .pixel-card-title,
+.pixel-card.retro-sega .pixel-card-text {
+  color: white;
+}
+
+.pixel-card.retro-arcade {
+  background: #000000;
+  color: #00ff00;
+  border: 3px solid #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.pixel-card.retro-arcade .pixel-card-title,
+.pixel-card.retro-arcade .pixel-card-text {
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* ========================================
+   Scanline Effect
+   ======================================== */
+
+.pixel-card.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 3px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ========================================
+   CRT Effect
+   ======================================== */
+
+.pixel-card.crt {
+  animation: crtFlicker 0.15s infinite;
+}
+
+@keyframes crtFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.98; }
+}
+
+.pixel-card.crt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ========================================
+   Pixel Animation Effects
+   ======================================== */
+
+.pixel-card.glitch {
+  animation: pixelGlitch 3s infinite;
+}
+
+@keyframes pixelGlitch {
+  0%, 98%, 100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  95% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  97% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(-90deg);
+  }
+}
+
+.pixel-card.shake:hover {
+  animation: pixelShake 0.5s ease;
+}
+
+@keyframes pixelShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.pixel-card.small {
+  padding: 1rem;
+}
+
+.pixel-card.small .pixel-card-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+}
+
+.pixel-card.small .pixel-card-title {
+  font-size: 1.125rem;
+}
+
+.pixel-card.large {
+  padding: 3rem;
+}
+
+.pixel-card.large .pixel-card-icon {
+  width: 64px;
+  height: 64px;
+  font-size: 32px;
+}
+
+.pixel-card.large .pixel-card-title {
+  font-size: 2rem;
+}
+
+/* ========================================
+   Interactive States
+   ======================================== */
+
+.pixel-card.clickable {
+  cursor: pointer;
+}
+
+.pixel-card.clickable:active {
+  transform: scale(0.98);
+}
+
+.pixel-card.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+  .pixel-card {
+    padding: 1.5rem;
+  }
+
+  .pixel-card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .pixel-card-title {
+    font-size: 1.25rem;
+  }
+
+  .pixel-card-footer {
+    flex-direction: column;
+  }
+
+  .pixel-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .pixel-card {
+    padding: 1.25rem;
+  }
+
+  .pixel-card-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .pixel-card-title {
+    font-size: 1.125rem;
+  }
+
+  .pixel-badge {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* ========================================
+   Dark Theme Adjustments
+   ======================================== */
+
+[data-theme="dark"] .pixel-card.bit-8 {
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .pixel-card-title {
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .pixel-card.retro-arcade {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  .pixel-card {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .pixel-card::after,
+  .pixel-card.scanlines::before,
+  .pixel-card.crt::after {
+    display: none;
+  }
+
+  .pixel-badge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+}

@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Services - FixItNow</title>
+    <meta name="description" content="Book home services with FixItNow - plumbing, electrical, painting, carpentry, AC repair, and cleaning services">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #ff6b6b;
+            --accent: #4ecdc4;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --dark: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --border-radius: 12px;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo {
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-logo i {
+            color: var(--secondary);
+            font-size: 26px;
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .menu-item {
+            padding: 14px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #555;
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: rgba(30, 60, 114, 0.05);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .menu-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .menu-item.active i {
+            color: var(--primary);
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .user-info h4 {
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        .header {
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-left h1 {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            width: 250px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .notification-icon {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .notification-icon:hover {
+            background: #e9ecef;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--secondary);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Book Services Content */
+        .book-services-content {
+            padding: 30px;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 16px;
+            max-width: 600px;
+        }
+
+        /* Service Categories */
+        .service-categories {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .category-card:hover, .category-card.active {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .category-card.active::before, .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 28px;
+        }
+
+        .category-card h4 {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .category-card p {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Booking Form */
+        .booking-form-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Service Providers */
+        .service-providers {
+            margin-bottom: 30px;
+        }
+
+        .providers-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .provider-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .provider-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .provider-card:hover, .provider-card.selected {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .provider-card.selected::before, .provider-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .provider-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .provider-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+
+        .provider-info h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .provider-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--warning);
+            font-size: 14px;
+        }
+
+        .provider-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .provider-price {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .provider-description {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .provider-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .feature-tag {
+            background: rgba(30, 60, 114, 0.1);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .select-provider-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .select-provider-btn:hover {
+            background: #152a52;
+        }
+
+        /* Booking Summary */
+        .booking-summary {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-label {
+            color: var(--gray);
+        }
+
+        .summary-value {
+            font-weight: 500;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+
+        .summary-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .book-now-btn {
+            background: linear-gradient(135deg, var(--primary), #2a5298);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .book-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3);
+        }
+
+        .book-now-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box input {
+                width: 200px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .header {
+                padding: 0 20px;
+            }
+            
+            .search-box {
+                display: none;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .providers-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .book-services-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-card, .provider-card, .booking-form-container {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 350px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .toast.warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--primary);
+        }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--danger);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--warning);
+        }
+
+        .toast.info .toast-icon {
+            color: var(--primary);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        /* Form Auto-save Indicator */
+        .auto-save-indicator {
+            font-size: 12px;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .auto-save-indicator.show {
+            opacity: 1;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            height: 2px;
+            background: var(--primary);
+            z-index: 2;
+            transition: width 0.3s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 3;
+        }
+
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .step.active .step-icon {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .step.completed .step-icon {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 12px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: var(--primary);
+        }
+
+        /* Service Details Panel */
+        .service-details-panel {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .service-details-panel.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .service-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .service-details-title {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .service-details-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .service-details-content {
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            margin: 15px 0;
+        }
+
+        .service-features h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .service-features ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .service-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        .service-features i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-logo">
+                <i class="fas fa-tools" aria-hidden="true"></i>
+                FixItNow
+            </a>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                Dashboard
+            </a>
+            <a href="#" class="menu-item active">
+                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                Book Services
+            </a>
+            <a href="service_history.html" class="menu-item">
+                <i class="fas fa-history" aria-hidden="true"></i>
+                Service History
+            </a>
+            <a href="invoice.html" class="menu-item">
+                <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
+                Invoices
+            </a>
+            <a href="review.html" class="menu-item">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                Reviews
+            </a>
+            <a href="profile.html" class="menu-item">
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
+                Profile
+            </a>
+            <a href="setting.html" class="menu-item">
+                <i class="fas fa-cog" aria-hidden="true"></i>
+                Settings
+            </a>
+            <a href="help.html" class="menu-item">
+                <i class="fas fa-question-circle" aria-hidden="true"></i>
+                Help & Support
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar">JS</div>
+                <div class="user-info">
+                    <h4>John Smith</h4>
+                    <p>Premium Member</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <button class="menu-toggle" type="button" aria-label="Toggle menu">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+                <h1>Book Services</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="text" placeholder="Search services, providers..." aria-label="Search services and providers" id="searchInput">
+                </div>
+                
+                <div class="notification-icon" role="button" aria-label="View notifications" tabindex="0">
+                    <i class="fas fa-bell" aria-hidden="true"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Book Services Content -->
+        <div class="book-services-content">
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="progress-bar" id="progressBar" style="width: 33%"></div>
+                <div class="step active" id="step1">
+                    <div class="step-icon">1</div>
+                    <span class="step-label">Select Service</span>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-icon">2</div>
+                    <span class="step-label">Details</span>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-icon">3</div>
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+            
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Book a Service</h1>
+                <p class="page-subtitle">Select a service category, choose your preferred provider, and schedule your appointment.</p>
+            </div>
+            
+            <div class="content-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+                <div>
+                    <!-- Service Categories -->
+                    <div class="service-categories">
+                        <h2 class="section-title">Service Categories</h2>
+                        <div class="categories-grid" id="categoriesGrid">
+                            <!-- Categories will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Service Details Panel -->
+                    <div class="service-details-panel" id="serviceDetailsPanel">
+                        <div class="service-details-header">
+                            <h3 class="service-details-title" id="serviceDetailsTitle">Plumbing Services</h3>
+                            <button class="service-details-close" id="serviceDetailsClose">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="service-details-content">
+                            <p id="serviceDetailsDescription">Our professional plumbing services cover all your needs from minor repairs to major installations.</p>
+                            
+                            <div class="service-features">
+                                <h4>What's Included:</h4>
+                                <ul id="serviceFeaturesList">
+                                    <!-- Features will be populated by JavaScript -->
+                                </ul>
+                            </div>
+                            
+                            <div class="service-features">
+                                <h4>Pricing:</h4>
+                                <p id="servicePricingInfo">Starting from $75 for basic services. Free estimates for larger projects.</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="selectServiceBtn">Select This Service</button>
+                    </div>
+                    
+                    <!-- Booking Form -->
+                    <div class="booking-form-container" id="bookingFormContainer">
+                        <h2 class="section-title">Service Details</h2>
+                        <form id="bookingForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="serviceType">Service Type</label>
+                                    <select class="form-select" id="serviceType" name="serviceType" required>
+                                        <option value="">Select a service</option>
+                                        <!-- Options will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="urgency">Urgency</label>
+                                    <select class="form-select" id="urgency" name="urgency" required>
+                                        <option value="normal">Normal (Within 3 days)</option>
+                                        <option value="urgent">Urgent (Within 24 hours)</option>
+                                        <option value="emergency">Emergency (As soon as possible)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="preferredDate">Preferred Date</label>
+                                    <input type="date" class="form-input" id="preferredDate" name="preferredDate" required>
+                                    <div class="auto-save-indicator" id="date-save-indicator">
+                                        <i class="fas fa-check"></i> Saved
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="preferredTime">Preferred Time</label>
+                                    <select class="form-select" id="preferredTime" name="preferredTime" required>
+                                        <option value="morning">Morning (8 AM - 12 PM)</option>
+                                        <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                                        <option value="evening">Evening (4 PM - 8 PM)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="address">Service Address</label>
+                                    <input type="text" class="form-input" id="address" name="address" placeholder="Enter your full address" required>
+                                    <div class="auto-save-indicator" id="address-save-indicator">
+                                        <i class="fas fa-check"></i> Saved
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="problemDescription">Problem Description</label>
+                                    <textarea class="form-textarea" id="problemDescription" name="problemDescription" placeholder="Please describe the issue in detail..." required></textarea>
+                                    <div class="auto-save-indicator" id="description-save-indicator">
+                                        <i class="fas fa-check"></i> Saved
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Service Providers -->
+                    <div class="service-providers" id="serviceProvidersSection">
+                        <h2 class="section-title">Available Providers</h2>
+                        <div class="providers-list" id="providersList">
+                            <!-- Providers will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booking Summary -->
+                <div class="booking-summary">
+                    <h3 class="summary-title">Booking Summary</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">Service Category:</span>
+                        <span class="summary-value" id="summary-category">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Service Type:</span>
+                        <span class="summary-value" id="summary-service">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Provider:</span>
+                        <span class="summary-value" id="summary-provider">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Date & Time:</span>
+                        <span class="summary-value" id="summary-datetime">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Address:</span>
+                        <span class="summary-value" id="summary-address">Not provided</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Service Fee:</span>
+                        <span class="summary-value" id="summary-fee">$0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Urgency Fee:</span>
+                        <span class="summary-value" id="summary-urgency">$0</span>
+                    </div>
+                    <div class="summary-item summary-total">
+                        <span class="summary-label">Total:</span>
+                        <span class="summary-value" id="summary-total">$0</span>
+                    </div>
+                    <button class="book-now-btn" id="bookNowBtn" type="button" disabled>
+                        <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Book Services Application
+        class BookServicesApp {
+            constructor() {
+                this.currentStep = 1;
+                this.selectedCategory = null;
+                this.selectedProvider = null;
+                this.serviceData = {};
+                this.providersData = {};
+                this.init();
+            }
+            
+            init() {
+                this.loadServiceData();
+                this.setupEventListeners();
+                this.loadFormData();
+                this.updateProgress();
+            }
+            
+            // Load service data
+            loadServiceData() {
+                this.serviceData = {
+                    plumbing: {
+                        name: "Plumbing",
+                        icon: "fa-faucet",
+                        description: "Our professional plumbing services cover all your needs from minor repairs to major installations. Our licensed plumbers are available 24/7 for emergencies.",
+                        features: [
+                            "Leak detection and repair",
+                            "Pipe installation and replacement",
+                            "Faucet and fixture installation",
+                            "Drain cleaning and unclogging",
+                            "Water heater services",
+                            "Toilet repair and installation",
+                            "Sump pump installation"
+                        ],
+                        pricing: "Starting from $75 for basic services. Free estimates for larger projects.",
+                        serviceTypes: [
+                            { value: "leak-repair", label: "Leak Repair", basePrice: 75 },
+                            { value: "pipe-installation", label: "Pipe Installation", basePrice: 100 },
+                            { value: "faucet-replacement", label: "Faucet Replacement", basePrice: 65 },
+                            { value: "drain-cleaning", label: "Drain Cleaning", basePrice: 80 },
+                            { value: "water-heater", label: "Water Heater Repair", basePrice: 120 }
+                        ]
+                    },
+                    electrical: {
+                        name: "Electrical",
+                        icon: "fa-bolt",
+                        description: "Complete electrical solutions for your home or business. Our certified electricians ensure safety and code compliance in all our work.",
+                        features: [
+                            "Electrical wiring and rewiring",
+                            "Lighting fixture installation",
+                            "Outlet and switch installation",
+                            "Circuit breaker repairs",
+                            "Electrical panel upgrades",
+                            "Ceiling fan installation",
+                            "Home safety inspections"
+                        ],
+                        pricing: "Starting from $90 for basic services. Emergency services available.",
+                        serviceTypes: [
+                            { value: "wiring", label: "Electrical Wiring", basePrice: 90 },
+                            { value: "fixture-installation", label: "Fixture Installation", basePrice: 75 },
+                            { value: "outlet-repair", label: "Outlet Repair", basePrice: 65 },
+                            { value: "panel-upgrade", label: "Panel Upgrade", basePrice: 200 },
+                            { value: "safety-inspection", label: "Safety Inspection", basePrice: 50 }
+                        ]
+                    },
+                    painting: {
+                        name: "Painting",
+                        icon: "fa-paint-roller",
+                        description: "Transform your space with our professional painting services. We use high-quality paints and techniques for a flawless finish.",
+                        features: [
+                            "Interior and exterior painting",
+                            "Color consultation",
+                            "Surface preparation and priming",
+                            "Wallpaper removal",
+                            "Drywall repair",
+                            "Cabinet refinishing",
+                            "Decorative finishes"
+                        ],
+                        pricing: "Starting from $200 per room. Free color consultation with every project.",
+                        serviceTypes: [
+                            { value: "interior-painting", label: "Interior Painting", basePrice: 200 },
+                            { value: "exterior-painting", label: "Exterior Painting", basePrice: 300 },
+                            { value: "cabinet-painting", label: "Cabinet Painting", basePrice: 150 },
+                            { value: "wallpaper-removal", label: "Wallpaper Removal", basePrice: 100 },
+                            { value: "color-consultation", label: "Color Consultation", basePrice: 50 }
+                        ]
+                    },
+                    carpentry: {
+                        name: "Carpentry",
+                        icon: "fa-tools",
+                        description: "Custom woodworking and carpentry solutions to enhance your home's functionality and aesthetics. From repairs to custom builds.",
+                        features: [
+                            "Custom furniture building",
+                            "Cabinet installation and repair",
+                            "Door and window framing",
+                            "Deck and patio construction",
+                            "Trim and molding installation",
+                            "Shelving and storage solutions",
+                            "Wood floor repairs"
+                        ],
+                        pricing: "Starting from $65/hour. Free estimates for custom projects.",
+                        serviceTypes: [
+                            { value: "furniture-building", label: "Furniture Building", basePrice: 65 },
+                            { value: "cabinet-installation", label: "Cabinet Installation", basePrice: 80 },
+                            { value: "deck-construction", label: "Deck Construction", basePrice: 100 },
+                            { value: "trim-installation", label: "Trim Installation", basePrice: 70 },
+                            { value: "shelving", label: "Shelving Solutions", basePrice: 60 }
+                        ]
+                    },
+                    ac: {
+                        name: "AC Repair",
+                        icon: "fa-wind",
+                        description: "Keep your home comfortable with our professional AC repair and maintenance services. We service all major brands and models.",
+                        features: [
+                            "AC unit repair and maintenance",
+                            "Refrigerant recharge",
+                            "Thermostat installation",
+                            "Duct cleaning and repair",
+                            "System troubleshooting",
+                            "Preventive maintenance",
+                            "Emergency repairs"
+                        ],
+                        pricing: "Starting from $80 for basic services. Maintenance plans available.",
+                        serviceTypes: [
+                            { value: "ac-repair", label: "AC Unit Repair", basePrice: 80 },
+                            { value: "maintenance", label: "Preventive Maintenance", basePrice: 60 },
+                            { value: "refrigerant-recharge", label: "Refrigerant Recharge", basePrice: 120 },
+                            { value: "thermostat-installation", label: "Thermostat Installation", basePrice: 75 },
+                            { value: "duct-cleaning", label: "Duct Cleaning", basePrice: 150 }
+                        ]
+                    },
+                    cleaning: {
+                        name: "Cleaning",
+                        icon: "fa-soap",
+                        description: "Professional cleaning services to keep your home spotless and hygienic. We use eco-friendly products and thorough techniques.",
+                        features: [
+                            "Deep cleaning services",
+                            "Move-in/move-out cleaning",
+                            "Carpet and upholstery cleaning",
+                            "Window cleaning",
+                            "Post-construction cleaning",
+                            "Regular maintenance cleaning",
+                            "Eco-friendly products"
+                        ],
+                        pricing: "Starting from $100 for basic cleaning. Custom packages available.",
+                        serviceTypes: [
+                            { value: "deep-cleaning", label: "Deep Cleaning", basePrice: 100 },
+                            { value: "move-cleaning", label: "Move-in/Move-out Cleaning", basePrice: 150 },
+                            { value: "carpet-cleaning", label: "Carpet Cleaning", basePrice: 80 },
+                            { value: "window-cleaning", label: "Window Cleaning", basePrice: 70 },
+                            { value: "maintenance-cleaning", label: "Maintenance Cleaning", basePrice: 60 }
+                        ]
+                    }
+                };
+                
+                this.providersData = {
+                    plumbing: [
+                        {
+                            id: 1,
+                            name: "Mike Plumbing Pros",
+                            initials: "MP",
+                            rating: 4.8,
+                            reviews: 124,
+                            experience: "10+ years experience",
+                            price: "$85/hr",
+                            description: "Specialized in residential plumbing with quick response times and quality service guaranteed.",
+                            features: ["24/7 Available", "Licensed", "Free Estimate"]
+                        },
+                        {
+                            id: 2,
+                            name: "Aqua Plumbing Solutions",
+                            initials: "AP",
+                            rating: 4.6,
+                            reviews: 89,
+                            experience: "8+ years experience",
+                            price: "$75/hr",
+                            description: "Friendly and reliable plumbing services with a focus on customer satisfaction and fair pricing.",
+                            features: ["Same Day Service", "Emergency", "Warranty"]
+                        },
+                        {
+                            id: 3,
+                            name: "Precision Plumbing",
+                            initials: "PP",
+                            rating: 4.9,
+                            reviews: 156,
+                            experience: "15+ years experience",
+                            price: "$95/hr",
+                            description: "Expert plumbing solutions for complex issues with advanced tools and techniques.",
+                            features: ["Advanced Tools", "Licensed", "Insured"]
+                        }
+                    ],
+                    // Other categories would have their own providers
+                    electrical: [
+                        {
+                            id: 4,
+                            name: "Electric Pro",
+                            initials: "EP",
+                            rating: 4.7,
+                            reviews: 98,
+                            experience: "12+ years experience",
+                            price: "$90/hr",
+                            description: "Licensed electricians providing safe and reliable electrical services for homes and businesses.",
+                            features: ["Licensed", "Insured", "24/7 Emergency"]
+                        }
+                    ]
+                };
+                
+                this.renderCategories();
+            }
+            
+            // Render service categories
+            renderCategories() {
+                const categoriesGrid = document.getElementById('categoriesGrid');
+                categoriesGrid.innerHTML = '';
+                
+                Object.keys(this.serviceData).forEach(categoryKey => {
+                    const category = this.serviceData[categoryKey];
+                    const categoryCard = document.createElement('div');
+                    categoryCard.className = 'category-card';
+                    categoryCard.setAttribute('data-category', categoryKey);
+                    categoryCard.setAttribute('role', 'button');
+                    categoryCard.setAttribute('tabindex', '0');
+                    categoryCard.setAttribute('aria-label', `Select ${category.name} services`);
+                    
+                    categoryCard.innerHTML = `
+                        <div class="category-icon">
+                            <i class="fas ${category.icon}" aria-hidden="true"></i>
+                        </div>
+                        <h4>${category.name}</h4>
+                        <p>${categoryKey === 'plumbing' ? 'Leaks, installations & repairs' : 
+                              categoryKey === 'electrical' ? 'Wiring, fixtures & repairs' :
+                              categoryKey === 'painting' ? 'Interior & exterior painting' :
+                              categoryKey === 'carpentry' ? 'Furniture & woodwork' :
+                              categoryKey === 'ac' ? 'Cooling system services' :
+                              'Deep cleaning services'}</p>
+                    `;
+                    
+                    categoryCard.addEventListener('click', () => {
+                        this.selectCategory(categoryKey);
+                    });
+                    
+                    categoryCard.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.selectCategory(categoryKey);
+                        }
+                    });
+                    
+                    categoriesGrid.appendChild(categoryCard);
+                });
+                
+                // Select plumbing by default
+                this.selectCategory('plumbing');
+            }
+            
+            // Select a service category
+            selectCategory(categoryKey) {
+                // Remove active class from all categories
+                document.querySelectorAll('.category-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                
+                // Add active class to selected category
+                document.querySelector(`.category-card[data-category="${categoryKey}"]`).classList.add('active');
+                
+                this.selectedCategory = categoryKey;
+                const category = this.serviceData[categoryKey];
+                
+                // Update summary
+                document.getElementById('summary-category').textContent = category.name;
+                
+                // Update service types dropdown
+                this.updateServiceTypes(category);
+                
+                // Update providers list
+                this.updateProviders(categoryKey);
+                
+                // Show service details panel
+                this.showServiceDetails(category);
+                
+                // Save to localStorage
+                this.saveFormData();
+                
+                // Update total
+                this.updateTotal();
+                
+                // Update progress
+                this.updateProgress();
+            }
+            
+            // Update service types dropdown
+            updateServiceTypes(category) {
+                const serviceTypeSelect = document.getElementById('serviceType');
+                serviceTypeSelect.innerHTML = '<option value="">Select a service</option>';
+                
+                category.serviceTypes.forEach(service => {
+                    const option = document.createElement('option');
+                    option.value = service.value;
+                    option.textContent = service.label;
+                    option.setAttribute('data-price', service.basePrice);
+                    serviceTypeSelect.appendChild(option);
+                });
+            }
+            
+            // Update providers list
+            updateProviders(categoryKey) {
+                const providersList = document.getElementById('providersList');
+                providersList.innerHTML = '';
+                
+                const providers = this.providersData[categoryKey] || [];
+                
+                if (providers.length === 0) {
+                    providersList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-user-hard-hat"></i>
+                            <h3>No Providers Available</h3>
+                            <p>We're working on adding providers for this service category.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                providers.forEach(provider => {
+                    const providerCard = document.createElement('div');
+                    providerCard.className = 'provider-card';
+                    providerCard.setAttribute('data-provider', provider.id);
+                    
+                    providerCard.innerHTML = `
+                        <div class="provider-header">
+                            <div class="provider-avatar">${provider.initials}</div>
+                            <div class="provider-info">
+                                <h4>${provider.name}</h4>
+                                <div class="provider-rating">
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <span>${provider.rating} (${provider.reviews} reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="provider-details">
+                            <span>${provider.experience}</span>
+                            <span class="provider-price">${provider.price}</span>
+                        </div>
+                        <p class="provider-description">${provider.description}</p>
+                        <div class="provider-features">
+                            ${provider.features.map(feature => `<span class="feature-tag">${feature}</span>`).join('')}
+                        </div>
+                        <button class="select-provider-btn" type="button" aria-label="Select ${provider.name} as service provider">Select Provider</button>
+                    `;
+                    
+                    providerCard.querySelector('.select-provider-btn').addEventListener('click', () => {
+                        this.selectProvider(provider);
+                    });
+                    
+                    providersList.appendChild(providerCard);
+                });
+            }
+            
+            // Show service details panel
+            showServiceDetails(category) {
+                const panel = document.getElementById('serviceDetailsPanel');
+                const title = document.getElementById('serviceDetailsTitle');
+                const description = document.getElementById('serviceDetailsDescription');
+                const featuresList = document.getElementById('serviceFeaturesList');
+                const pricingInfo = document.getElementById('servicePricingInfo');
+                
+                title.textContent = `${category.name} Services`;
+                description.textContent = category.description;
+                pricingInfo.textContent = category.pricing;
+                
+                featuresList.innerHTML = '';
+                category.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                    featuresList.appendChild(li);
+                });
+                
+                panel.classList.add('active');
+            }
+            
+            // Select a service provider
+            selectProvider(provider) {
+                // Remove selected class from all providers
+                document.querySelectorAll('.provider-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked provider
+                document.querySelector(`.provider-card[data-provider="${provider.id}"]`).classList.add('selected');
+                
+                this.selectedProvider = provider;
+                
+                // Update summary
+                document.getElementById('summary-provider').textContent = provider.name;
+                document.getElementById('summary-fee').textContent = provider.price;
+                
+                // Save to localStorage
+                this.saveFormData();
+                
+                // Update total
+                this.updateTotal();
+                
+                // Update progress
+                this.updateProgress();
+            }
+            
+            // Setup event listeners
+            setupEventListeners() {
+                // Mobile menu toggle
+                document.querySelector('.menu-toggle').addEventListener('click', () => {
+                    document.querySelector('.sidebar').classList.toggle('active');
+                });
+                
+                // Service details close button
+                document.getElementById('serviceDetailsClose').addEventListener('click', () => {
+                    document.getElementById('serviceDetailsPanel').classList.remove('active');
+                });
+                
+                // Select service button
+                document.getElementById('selectServiceBtn').addEventListener('click', () => {
+                    document.getElementById('serviceDetailsPanel').classList.remove('active');
+                    document.getElementById('bookingFormContainer').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                // Form input listeners with auto-save
+                document.getElementById('serviceType').addEventListener('change', () => {
+                    document.getElementById('summary-service').textContent = this.serviceType.options[this.serviceType.selectedIndex].text;
+                    this.saveFormData();
+                    this.updateTotal();
+                    this.updateProgress();
+                });
+                
+                document.getElementById('urgency').addEventListener('change', () => {
+                    this.saveFormData();
+                    this.updateTotal();
+                });
+                
+                document.getElementById('preferredDate').addEventListener('change', () => {
+                    this.showAutoSaveIndicator('date');
+                    this.updateDateTimeSummary();
+                    this.saveFormData();
+                    this.updateProgress();
+                });
+                
+                document.getElementById('preferredTime').addEventListener('change', () => {
+                    this.updateDateTimeSummary();
+                    this.saveFormData();
+                });
+                
+                document.getElementById('address').addEventListener('input', () => {
+                    this.showAutoSaveIndicator('address');
+                    document.getElementById('summary-address').textContent = this.address.value || 'Not provided';
+                    this.saveFormData();
+                    this.updateProgress();
+                });
+                
+                document.getElementById('problemDescription').addEventListener('input', () => {
+                    this.showAutoSaveIndicator('description');
+                    this.saveFormData();
+                });
+                
+                // Book Now button
+                document.getElementById('bookNowBtn').addEventListener('click', () => {
+                    this.bookService();
+                });
+            }
+            
+            // Show auto-save indicator
+            showAutoSaveIndicator(field) {
+                const indicator = document.getElementById(`${field}-save-indicator`);
+                indicator.classList.add('show');
+                
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                }, 2000);
+            }
+            
+            // Update date and time summary
+            updateDateTimeSummary() {
+                const date = document.getElementById('preferredDate').value;
+                const time = document.getElementById('preferredTime').options[document.getElementById('preferredTime').selectedIndex].text;
+                
+                if (date && time) {
+                    const formattedDate = new Date(date).toLocaleDateString('en-US', { 
+                        weekday: 'short', 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                    document.getElementById('summary-datetime').textContent = `${formattedDate}, ${time}`;
+                }
+            }
+            
+            // Update total cost
+            updateTotal() {
+                let total = 0;
+                
+                // Base service fee
+                const feeElement = document.getElementById('summary-fee');
+                if (feeElement.textContent !== '$0' && this.selectedProvider) {
+                    const fee = parseFloat(this.selectedProvider.price.replace('$', '').replace('/hr', ''));
+                    total += fee;
+                }
+                
+                // Urgency fee
+                const urgency = document.getElementById('urgency').value;
+                let urgencyFee = 0;
+                if (urgency === 'urgent') urgencyFee = 25;
+                if (urgency === 'emergency') urgencyFee = 50;
+                
+                document.getElementById('summary-urgency').textContent = `$${urgencyFee}`;
+                total += urgencyFee;
+                
+                // Update total
+                document.getElementById('summary-total').textContent = `$${total}`;
+                
+                // Enable/disable book now button
+                const bookNowBtn = document.getElementById('bookNowBtn');
+                const isFormValid = this.isFormValid();
+                bookNowBtn.disabled = !isFormValid;
+            }
+            
+            // Check if form is valid
+            isFormValid() {
+                return this.selectedCategory && 
+                       document.getElementById('serviceType').value && 
+                       this.selectedProvider && 
+                       document.getElementById('preferredDate').value && 
+                       document.getElementById('address').value;
+            }
+            
+            // Update progress steps
+            updateProgress() {
+                const steps = document.querySelectorAll('.step');
+                const progressBar = document.getElementById('progressBar');
+                
+                // Reset all steps
+                steps.forEach(step => {
+                    step.classList.remove('active', 'completed');
+                });
+                
+                // Determine current step
+                if (this.selectedCategory) {
+                    document.getElementById('step1').classList.add('completed');
+                    document.getElementById('step2').classList.add('active');
+                    progressBar.style.width = '66%';
+                }
+                
+                if (this.isFormValid()) {
+                    document.getElementById('step2').classList.add('completed');
+                    document.getElementById('step3').classList.add('active');
+                    progressBar.style.width = '100%';
+                }
+            }
+            
+            // Save form data to localStorage
+            saveFormData() {
+                const formData = {
+                    serviceCategory: this.selectedCategory,
+                    serviceType: document.getElementById('serviceType').value,
+                    urgency: document.getElementById('urgency').value,
+                    preferredDate: document.getElementById('preferredDate').value,
+                    preferredTime: document.getElementById('preferredTime').value,
+                    address: document.getElementById('address').value,
+                    problemDescription: document.getElementById('problemDescription').value,
+                    provider: this.selectedProvider ? this.selectedProvider.name : null,
+                    providerFee: this.selectedProvider ? this.selectedProvider.price : null
+                };
+                
+                localStorage.setItem('fixitnow_booking', JSON.stringify(formData));
+            }
+            
+            // Load form data from localStorage
+            loadFormData() {
+                const savedData = localStorage.getItem('fixitnow_booking');
+                
+                if (savedData) {
+                    const formData = JSON.parse(savedData);
+                    
+                    // Restore category
+                    if (formData.serviceCategory) {
+                        this.selectCategory(formData.serviceCategory);
+                    }
+                    
+                    // Restore form fields
+                    if (formData.serviceType) {
+                        document.getElementById('serviceType').value = formData.serviceType;
+                        document.getElementById('summary-service').textContent = 
+                            document.getElementById('serviceType').options[document.getElementById('serviceType').selectedIndex].text;
+                    }
+                    
+                    if (formData.urgency) {
+                        document.getElementById('urgency').value = formData.urgency;
+                    }
+                    
+                    if (formData.preferredDate) {
+                        document.getElementById('preferredDate').value = formData.preferredDate;
+                    }
+                    
+                    if (formData.preferredTime) {
+                        document.getElementById('preferredTime').value = formData.preferredTime;
+                    }
+                    
+                    if (formData.address) {
+                        document.getElementById('address').value = formData.address;
+                        document.getElementById('summary-address').textContent = formData.address;
+                    }
+                    
+                    if (formData.problemDescription) {
+                        document.getElementById('problemDescription').value = formData.problemDescription;
+                    }
+                    
+                    // Update date/time and total
+                    this.updateDateTimeSummary();
+                    this.updateTotal();
+                    this.updateProgress();
+                }
+                
+                // Initialize with today's date
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('preferredDate').value = today;
+                document.getElementById('preferredDate').min = today;
+            }
+            
+            // Book service
+            bookService() {
+                const btn = document.getElementById('bookNowBtn');
+                const originalText = btn.innerHTML;
+                
+                // Validate form
+                const form = document.getElementById('bookingForm');
+                if (!form.checkValidity()) {
+                    this.showToast('Please fill in all required fields before booking.', 'error');
+                    return;
+                }
+                
+                if (!this.selectedProvider) {
+                    this.showToast('Please select a service provider before booking.', 'error');
+                    return;
+                }
+                
+                // Show loading state
+                btn.innerHTML = '<div class="loading"></div> Processing...';
+                btn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Show success message
+                    this.showToast('Booking confirmed! Check your email for details.', 'success');
+                    
+                    // Reset button
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    
+                    // Clear saved data
+                    localStorage.removeItem('fixitnow_booking');
+                    
+                    // In a real app, you might redirect to a confirmation page
+                    // or show a confirmation modal
+                }, 2000);
+            }
+            
+            // Show toast notification
+            showToast(message, type = 'info', duration = 5000) {
+                const toastContainer = document.getElementById('toastContainer');
+                const toastId = 'toast-' + Date.now();
+                
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.id = toastId;
+                toast.innerHTML = `
+                    <div class="toast-icon">
+                        <i class="fas fa-${this.getToastIcon(type)}"></i>
+                    </div>
+                    <div class="toast-content">
+                        <div class="toast-title">${this.getToastTitle(type)}</div>
+                        <div class="toast-message">${message}</div>
+                    </div>
+                    <button class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                // Show toast with animation
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 10);
+                
+                // Close button
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    this.hideToast(toastId);
+                });
+                
+                // Auto hide after duration
+                if (duration > 0) {
+                    setTimeout(() => {
+                        this.hideToast(toastId);
+                    }, duration);
+                }
+                
+                return toastId;
+            }
+            
+            // Hide toast
+            hideToast(toastId) {
+                const toast = document.getElementById(toastId);
+                if (toast) {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.parentNode.removeChild(toast);
+                        }
+                    }, 300);
+                }
+            }
+            
+            // Get toast icon based on type
+            getToastIcon(type) {
+                const icons = {
+                    'success': 'check-circle',
+                    'error': 'exclamation-circle',
+                    'warning': 'exclamation-triangle',
+                    'info': 'info-circle'
+                };
+                return icons[type] || 'info-circle';
+            }
+            
+            // Get toast title based on type
+            getToastTitle(type) {
+                const titles = {
+                    'success': 'Success',
+                    'error': 'Error',
+                    'warning': 'Warning',
+                    'info': 'Information'
+                };
+                return titles[type] || 'Information';
+            }
+            
+            // Getters for form elements
+            get serviceType() { return document.getElementById('serviceType'); }
+            get address() { return document.getElementById('address'); }
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.bookServicesApp = new BookServicesApp();
+        });
+    </script>
+</body>
+</html>
